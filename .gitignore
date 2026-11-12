@@ -1,0 +1,6 @@
+.env
+*.sql.gz
+*.dump
+*.backup
+__pycache__/
+.venv/
