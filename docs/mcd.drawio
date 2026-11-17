@@ -1,1 +1,457 @@
-<mxfile host="drawio"><diagram id="mcd" name="MCD"><mxGraphModel grid="1" gridSize="10" page="0"><root><mxCell id="0"/><mxCell id="1" parent="0"/><mxCell id="clients" value="&lt;b&gt;clients&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_client&lt;/u&gt;&lt;br&gt;prenom&lt;br&gt;nom&lt;br&gt;email&lt;br&gt;ville&lt;br&gt;date_inscription" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="40" y="60" width="200" height="152" as="geometry"/></mxCell><mxCell id="vehicules" value="&lt;b&gt;vehicules&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_vehicule&lt;/u&gt;&lt;br&gt;immatriculation&lt;br&gt;marque&lt;br&gt;modele&lt;br&gt;capacite_batterie_kwh" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="440" y="60" width="200" height="134" as="geometry"/></mxCell><mxCell id="sessions_recharge" value="&lt;b&gt;sessions_recharge&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_session&lt;/u&gt;&lt;br&gt;debut_session&lt;br&gt;fin_session&lt;br&gt;energie_kwh&lt;br&gt;cout_eur&lt;br&gt;statut" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="840" y="60" width="200" height="152" as="geometry"/></mxCell><mxCell id="paiements" value="&lt;b&gt;paiements&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_paiement&lt;/u&gt;&lt;br&gt;date_paiement&lt;br&gt;montant_eur&lt;br&gt;mode_paiement&lt;br&gt;statut" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="1240" y="60" width="200" height="134" as="geometry"/></mxCell><mxCell id="stations" value="&lt;b&gt;stations&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_station&lt;/u&gt;&lt;br&gt;code_station&lt;br&gt;nom_station&lt;br&gt;ville&lt;br&gt;adresse&lt;br&gt;date_ouverture" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="40" y="480" width="200" height="152" as="geometry"/></mxCell><mxCell id="bornes" value="&lt;b&gt;bornes&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_borne&lt;/u&gt;&lt;br&gt;code_borne&lt;br&gt;puissance_kw&lt;br&gt;connecteur&lt;br&gt;etat" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="440" y="480" width="200" height="134" as="geometry"/></mxCell><mxCell id="incidents" value="&lt;b&gt;incidents&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_incident&lt;/u&gt;&lt;br&gt;date_signalement&lt;br&gt;date_resolution&lt;br&gt;categorie&lt;br&gt;gravite&lt;br&gt;statut&lt;br&gt;description" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="840" y="480" width="200" height="170" as="geometry"/></mxCell><mxCell id="interventions" value="&lt;b&gt;interventions&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_intervention&lt;/u&gt;&lt;br&gt;date_debut&lt;br&gt;date_fin&lt;br&gt;statut&lt;br&gt;compte_rendu" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="1240" y="480" width="200" height="134" as="geometry"/></mxCell><mxCell id="techniciens" value="&lt;b&gt;techniciens&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_technicien&lt;/u&gt;&lt;br&gt;prenom&lt;br&gt;nom&lt;br&gt;email" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="1240" y="820" width="200" height="116" as="geometry"/></mxCell><mxCell id="as_posseder" value="posseder" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="300" y="110" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_posseder_clients" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="clients" target="as_posseder"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_posseder_vehicules" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="vehicules" target="as_posseder"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_effectuer" value="effectuer" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="700" y="110" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_effectuer_vehicules" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="vehicules" target="as_effectuer"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_effectuer_sessions_recharge" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="sessions_recharge" target="as_effectuer"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_regler" value="regler" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1100" y="110" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_regler_sessions_recharge" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="sessions_recharge" target="as_regler"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_regler_paiements" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="paiements" target="as_regler"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_regrouper" value="regrouper" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="300" y="530" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_regrouper_stations" value="1,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="stations" target="as_regrouper"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_regrouper_bornes" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="bornes" target="as_regrouper"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_accueillir" value="accueillir" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="700" y="360" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_accueillir_bornes" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="bornes" target="as_accueillir"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_accueillir_sessions_recharge" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="sessions_recharge" target="as_accueillir"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_concerner" value="concerner" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="700" y="530" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_concerner_bornes" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="bornes" target="as_concerner"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_concerner_incidents" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="incidents" target="as_concerner"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_donner_lieu" value="donner_lieu" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1100" y="530" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_donner_lieu_incidents" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="incidents" target="as_donner_lieu"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_donner_lieu_interventions" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="interventions" target="as_donner_lieu"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="as_realiser" value="realiser" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1290" y="730" width="110" height="50" as="geometry"/></mxCell><mxCell id="l_realiser_techniciens" value="0,n" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="techniciens" target="as_realiser"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="l_realiser_interventions" value="1,1" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="interventions" target="as_realiser"><mxGeometry x="-0.6" relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell><mxCell id="legende" value="&lt;b&gt;Légende&lt;/b&gt;&lt;br&gt;Rectangle = entité (identifiant souligné) · Ellipse = association&lt;br&gt;Cardinalité (min,max) écrite côté entité : nombre de participations d'une occurrence à l'association&lt;br&gt;Ex. posseder : un client possède 0 à n véhicules ; un véhicule appartient à exactement 1 client&lt;br&gt;Les associations sont toutes de type 1,n : aucune ne porte d'attribut, chacune devient une clé étrangère au MLD" style="text;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="40" y="820" width="1060" height="110" as="geometry"/></mxCell><mxCell id="titre" value="UrbanWatt — Modèle conceptuel de données (MCD)" style="text;html=1;fontSize=20;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="10" width="600" height="30" as="geometry"/></mxCell></root></mxGraphModel></diagram></mxfile>
+<mxfile host="65bd71144e">
+    <diagram id="mcd" name="MCD">
+        <mxGraphModel dx="1362" dy="737" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="clients" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;clients&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_client&lt;/u&gt;&lt;br&gt;prenom&lt;br&gt;nom&lt;br&gt;email&lt;br&gt;ville&lt;br&gt;date_inscription" vertex="1">
+                    <mxGeometry height="152" width="200" x="40" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="vehicules" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;vehicules&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_vehicule&lt;/u&gt;&lt;br&gt;immatriculation&lt;br&gt;marque&lt;br&gt;modele&lt;br&gt;capacite_batterie_kwh" vertex="1">
+                    <mxGeometry height="134" width="200" x="440" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sessions_recharge" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;sessions_recharge&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_session&lt;/u&gt;&lt;br&gt;debut_session&lt;br&gt;fin_session&lt;br&gt;energie_kwh&lt;br&gt;cout_eur&lt;br&gt;statut" vertex="1">
+                    <mxGeometry height="152" width="200" x="840" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="paiements" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;paiements&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_paiement&lt;/u&gt;&lt;br&gt;date_paiement&lt;br&gt;montant_eur&lt;br&gt;mode_paiement&lt;br&gt;statut" vertex="1">
+                    <mxGeometry height="134" width="200" x="1240" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="stations" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;stations&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_station&lt;/u&gt;&lt;br&gt;code_station&lt;br&gt;nom_station&lt;br&gt;ville&lt;br&gt;adresse&lt;br&gt;date_ouverture" vertex="1">
+                    <mxGeometry height="152" width="200" x="40" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="bornes" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;bornes&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_borne&lt;/u&gt;&lt;br&gt;code_borne&lt;br&gt;puissance_kw&lt;br&gt;connecteur&lt;br&gt;etat" vertex="1">
+                    <mxGeometry height="134" width="200" x="440" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="incidents" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;incidents&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_incident&lt;/u&gt;&lt;br&gt;date_signalement&lt;br&gt;date_resolution&lt;br&gt;categorie&lt;br&gt;gravite&lt;br&gt;statut&lt;br&gt;description" vertex="1">
+                    <mxGeometry height="170" width="200" x="840" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="interventions" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;interventions&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_intervention&lt;/u&gt;&lt;br&gt;date_debut&lt;br&gt;date_fin&lt;br&gt;statut&lt;br&gt;compte_rendu" vertex="1">
+                    <mxGeometry height="134" width="200" x="1240" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="techniciens" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;techniciens&lt;/b&gt;&lt;hr&gt;&lt;u&gt;id_technicien&lt;/u&gt;&lt;br&gt;prenom&lt;br&gt;nom&lt;br&gt;email" vertex="1">
+                    <mxGeometry height="116" width="200" x="1240" y="820" as="geometry"/>
+                </mxCell>
+                <mxCell id="as_posseder" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="posseder" vertex="1">
+                    <mxGeometry height="50" width="110" x="300" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_posseder_clients" edge="1" parent="1" source="clients" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_posseder" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_posseder_vehicules" edge="1" parent="1" source="vehicules" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_posseder" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_effectuer" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="effectuer" vertex="1">
+                    <mxGeometry height="50" width="110" x="700" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_effectuer_vehicules" edge="1" parent="1" source="vehicules" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_effectuer" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_effectuer_sessions_recharge" edge="1" parent="1" source="sessions_recharge" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_effectuer" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_regler" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="regler" vertex="1">
+                    <mxGeometry height="50" width="110" x="1100" y="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_regler_sessions_recharge" edge="1" parent="1" source="sessions_recharge" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_regler" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_regler_paiements" edge="1" parent="1" source="paiements" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_regler" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_regrouper" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="regrouper" vertex="1">
+                    <mxGeometry height="50" width="110" x="300" y="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_regrouper_stations" edge="1" parent="1" source="stations" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_regrouper" value="1,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_regrouper_bornes" edge="1" parent="1" source="bornes" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_regrouper" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_accueillir" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="accueillir" vertex="1">
+                    <mxGeometry height="50" width="110" x="700" y="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_accueillir_bornes" edge="1" parent="1" source="bornes" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_accueillir" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_accueillir_sessions_recharge" edge="1" parent="1" source="sessions_recharge" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_accueillir" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_concerner" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="concerner" vertex="1">
+                    <mxGeometry height="50" width="110" x="700" y="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_concerner_bornes" edge="1" parent="1" source="bornes" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_concerner" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_concerner_incidents" edge="1" parent="1" source="incidents" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_concerner" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_donner_lieu" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="donner_lieu" vertex="1">
+                    <mxGeometry height="50" width="110" x="1100" y="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_donner_lieu_incidents" edge="1" parent="1" source="incidents" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_donner_lieu" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_donner_lieu_interventions" edge="1" parent="1" source="interventions" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_donner_lieu" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="as_realiser" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="realiser" vertex="1">
+                    <mxGeometry height="50" width="110" x="1290" y="730" as="geometry"/>
+                </mxCell>
+                <mxCell id="l_realiser_techniciens" edge="1" parent="1" source="techniciens" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_realiser" value="0,n">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="l_realiser_interventions" edge="1" parent="1" source="interventions" style="endArrow=none;html=1;fontStyle=1;fontSize=13;labelBackgroundColor=#ffffff;" target="as_realiser" value="1,1">
+                    <mxGeometry relative="1" x="-0.6" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legende" parent="1" style="text;html=1;align=left;verticalAlign=top;spacing=10;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Légende&lt;/b&gt;&lt;br&gt;Rectangle = entité (identifiant souligné) · Ellipse = association&lt;br&gt;Cardinalité (min,max) écrite côté entité : nombre de participations d&#39;une occurrence à l&#39;association&lt;br&gt;Ex. posseder : un client possède 0 à n véhicules ; un véhicule appartient à exactement 1 client&lt;br&gt;Les associations sont toutes de type 1,n : aucune ne porte d&#39;attribut, chacune devient une clé étrangère au MLD" vertex="1">
+                    <mxGeometry height="110" width="1060" x="40" y="820" as="geometry"/>
+                </mxCell>
+                <mxCell id="titre" parent="1" style="text;html=1;fontSize=20;fontStyle=1;" value="UrbanWatt — Modèle conceptuel de données (MCD)" vertex="1">
+                    <mxGeometry height="30" width="600" x="40" y="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_titre" parent="1" style="text;html=1;fontSize=16;fontStyle=1;" value="Justification des cardinalités" vertex="1">
+                    <mxGeometry height="30" width="900" x="40" y="1016" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0" parent="1" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;columnLines=1;strokeColor=#6c8ebf;fontSize=12;" value="" vertex="1">
+                    <mxGeometry height="399" width="1400" x="40" y="1051" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r0" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="30" width="1400" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r0_c0" parent="just_t0_r0" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dae8fc;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Association" vertex="1">
+                    <mxGeometry height="30" width="173" as="geometry">
+                        <mxRectangle height="30" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r0_c1" parent="just_t0_r0" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dae8fc;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Cardinalités" vertex="1">
+                    <mxGeometry height="30" width="293" x="173" as="geometry">
+                        <mxRectangle height="30" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r0_c2" parent="just_t0_r0" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dae8fc;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Règle de gestion" vertex="1">
+                    <mxGeometry height="30" width="426" x="466" as="geometry">
+                        <mxRectangle height="30" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r0_c3" parent="just_t0_r0" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dae8fc;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Preuve dans les données" vertex="1">
+                    <mxGeometry height="30" width="508" x="892" as="geometry">
+                        <mxRectangle height="30" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r1" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r1_c0" parent="just_t0_r1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;posseder&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="173" as="geometry">
+                        <mxRectangle height="46" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r1_c1" parent="just_t0_r1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="clients &lt;b&gt;0,n&lt;/b&gt; — vehicules &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="293" x="173" as="geometry">
+                        <mxRectangle height="46" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r1_c2" parent="just_t0_r1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Un client possède 0 à N véhicules ; un véhicule appartient à un seul client" vertex="1">
+                    <mxGeometry height="46" width="426" x="466" as="geometry">
+                        <mxRectangle height="46" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r1_c3" parent="just_t0_r1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="&lt;b&gt;4 479&lt;/b&gt; clients sans véhicule (d&#39;où le 0) ; jusqu&#39;à 7 véhicules par client ; 0 véhicule sans client" vertex="1">
+                    <mxGeometry height="46" width="508" x="892" as="geometry">
+                        <mxRectangle height="46" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r2" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r2_c0" parent="just_t0_r2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;regrouper&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="173" as="geometry">
+                        <mxRectangle height="46" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r2_c1" parent="just_t0_r2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="stations &lt;b&gt;1,n&lt;/b&gt; — bornes &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="293" x="173" as="geometry">
+                        <mxRectangle height="46" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r2_c2" parent="just_t0_r2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Une station regroupe plusieurs bornes ; une borne appartient à une seule station" vertex="1">
+                    <mxGeometry height="46" width="426" x="466" as="geometry">
+                        <mxRectangle height="46" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r2_c3" parent="just_t0_r2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="0 station sans borne. Au MLD, la FK ne peut pas imposer le « au moins 1 »" vertex="1">
+                    <mxGeometry height="46" width="508" x="892" as="geometry">
+                        <mxRectangle height="46" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r3" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="30" width="1400" y="122" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r3_c0" parent="just_t0_r3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;effectuer&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="30" width="173" as="geometry">
+                        <mxRectangle height="30" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r3_c1" parent="just_t0_r3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="vehicules &lt;b&gt;0,n&lt;/b&gt; — sessions_recharge &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="30" width="293" x="173" as="geometry">
+                        <mxRectangle height="30" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r3_c2" parent="just_t0_r3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Une session concerne un seul véhicule" vertex="1">
+                    <mxGeometry height="30" width="426" x="466" as="geometry">
+                        <mxRectangle height="30" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r3_c3" parent="just_t0_r3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="1 véhicule n&#39;a jamais rechargé ; 0 session sans véhicule" vertex="1">
+                    <mxGeometry height="30" width="508" x="892" as="geometry">
+                        <mxRectangle height="30" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r4" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="152" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r4_c0" parent="just_t0_r4" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;accueillir&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="173" as="geometry">
+                        <mxRectangle height="46" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r4_c1" parent="just_t0_r4" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="bornes &lt;b&gt;0,n&lt;/b&gt; — sessions_recharge &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="293" x="173" as="geometry">
+                        <mxRectangle height="46" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r4_c2" parent="just_t0_r4" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Une session a lieu sur une seule borne" vertex="1">
+                    <mxGeometry height="46" width="426" x="466" as="geometry">
+                        <mxRectangle height="46" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r4_c3" parent="just_t0_r4" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Toutes les bornes ont des sessions, mais une borne neuve n&#39;en a aucune (d&#39;où le 0)" vertex="1">
+                    <mxGeometry height="46" width="508" x="892" as="geometry">
+                        <mxRectangle height="46" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r5" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="63" width="1400" y="198" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r5_c0" parent="just_t0_r5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;regler&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="63" width="173" as="geometry">
+                        <mxRectangle height="63" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r5_c1" parent="just_t0_r5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="sessions_recharge &lt;b&gt;0,n&lt;/b&gt; — paiements &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="63" width="293" x="173" as="geometry">
+                        <mxRectangle height="63" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r5_c2" parent="just_t0_r5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Un paiement concerne une seule session" vertex="1">
+                    <mxGeometry height="63" width="426" x="466" as="geometry">
+                        <mxRectangle height="63" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r5_c3" parent="just_t0_r5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="&lt;b&gt;32 700&lt;/b&gt; sessions sans paiement (20 241 interrompues + 12 459 annulées) ; max 1 aujourd&#39;hui, mais un paiement refusé peut être retenté (d&#39;où le n)" vertex="1">
+                    <mxGeometry height="63" width="508" x="892" as="geometry">
+                        <mxRectangle height="63" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r6" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="261" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r6_c0" parent="just_t0_r6" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;concerner&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="173" as="geometry">
+                        <mxRectangle height="46" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r6_c1" parent="just_t0_r6" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="bornes &lt;b&gt;0,n&lt;/b&gt; — incidents &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="293" x="173" as="geometry">
+                        <mxRectangle height="46" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r6_c2" parent="just_t0_r6" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Un incident est signalé sur une seule borne" vertex="1">
+                    <mxGeometry height="46" width="426" x="466" as="geometry">
+                        <mxRectangle height="46" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r6_c3" parent="just_t0_r6" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Toutes les bornes ont eu un incident, mais ce n&#39;est pas une obligation métier" vertex="1">
+                    <mxGeometry height="46" width="508" x="892" as="geometry">
+                        <mxRectangle height="46" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r7" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="307" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r7_c0" parent="just_t0_r7" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;donner_lieu&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="173" as="geometry">
+                        <mxRectangle height="46" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r7_c1" parent="just_t0_r7" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="incidents &lt;b&gt;0,n&lt;/b&gt; — interventions &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="293" x="173" as="geometry">
+                        <mxRectangle height="46" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r7_c2" parent="just_t0_r7" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Un incident donne lieu à 0..N interventions" vertex="1">
+                    <mxGeometry height="46" width="426" x="466" as="geometry">
+                        <mxRectangle height="46" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r7_c3" parent="just_t0_r7" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="&lt;b&gt;838&lt;/b&gt; incidents sans intervention ; max 1 aujourd&#39;hui, plusieurs passages possibles" vertex="1">
+                    <mxGeometry height="46" width="508" x="892" as="geometry">
+                        <mxRectangle height="46" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r8" parent="just_t0" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="353" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t0_r8_c0" parent="just_t0_r8" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;b&gt;realiser&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="173" as="geometry">
+                        <mxRectangle height="46" width="173" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r8_c1" parent="just_t0_r8" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="techniciens &lt;b&gt;0,n&lt;/b&gt; — interventions &lt;b&gt;1,1&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="46" width="293" x="173" as="geometry">
+                        <mxRectangle height="46" width="293" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r8_c2" parent="just_t0_r8" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Une intervention est réalisée par un seul technicien" vertex="1">
+                    <mxGeometry height="46" width="426" x="466" as="geometry">
+                        <mxRectangle height="46" width="426" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t0_r8_c3" parent="just_t0_r8" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Tous les techniciens sont intervenus, mais un nouveau technicien n&#39;a encore rien fait" vertex="1">
+                    <mxGeometry height="46" width="508" x="892" as="geometry">
+                        <mxRectangle height="46" width="508" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_titre" parent="1" style="text;html=1;fontSize=16;fontStyle=1;" value="Choix de modélisation" vertex="1">
+                    <mxGeometry height="30" width="900" x="80" y="1570" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1" parent="1" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=1;columnLines=1;strokeColor=#6c8ebf;fontSize=12;" value="" vertex="1">
+                    <mxGeometry height="258" width="1400" x="40" y="1535" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r0" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="30" width="1400" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r0_c0" parent="just_t1_r0" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dae8fc;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Question" vertex="1">
+                    <mxGeometry height="30" width="420" as="geometry">
+                        <mxRectangle height="30" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r0_c1" parent="just_t1_r0" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dae8fc;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Réponse" vertex="1">
+                    <mxGeometry height="30" width="980" x="420" as="geometry">
+                        <mxRectangle height="30" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r1" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="30" width="1400" y="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r1_c0" parent="just_t1_r1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Pourquoi des noms d&#39;entités au pluriel ?" vertex="1">
+                    <mxGeometry height="30" width="420" as="geometry">
+                        <mxRectangle height="30" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r1_c1" parent="just_t1_r1" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Ce sont les noms des tables CSV : le sujet impose de les conserver (« respect strict des intitulés d&#39;origine »)." vertex="1">
+                    <mxGeometry height="30" width="980" x="420" as="geometry">
+                        <mxRectangle height="30" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r2" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r2_c0" parent="just_t1_r2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Pourquoi aucune association N,N ni association porteuse ?" vertex="1">
+                    <mxGeometry height="46" width="420" as="geometry">
+                        <mxRectangle height="46" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r2_c1" parent="just_t1_r2" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Chaque règle de gestion relie une occurrence à &lt;b&gt;une seule&lt;/b&gt; autre (« un seul client », « une seule station »…) et aucune association n&#39;a d&#39;attribut propre." vertex="1">
+                    <mxGeometry height="46" width="980" x="420" as="geometry">
+                        <mxRectangle height="46" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r3" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="106" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r3_c0" parent="just_t1_r3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Pourquoi &lt;font face=&#39;Consolas&#39; color=&#39;#1f4e79&#39;&gt;paiements&lt;/font&gt; est une entité et pas un attribut de la session ?" vertex="1">
+                    <mxGeometry height="46" width="420" as="geometry">
+                        <mxRectangle height="46" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r3_c1" parent="just_t1_r3" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Un paiement a sa propre date, son montant, son mode et son &lt;b&gt;statut&lt;/b&gt; ; une session peut en avoir 0 ou plusieurs. Ne pas confondre session (recharge), énergie (kWh) et paiement (€)." vertex="1">
+                    <mxGeometry height="46" width="980" x="420" as="geometry">
+                        <mxRectangle height="46" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r4" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="30" width="1400" y="152" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r4_c0" parent="just_t1_r4" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Pourquoi &lt;font face=&#39;Consolas&#39; color=&#39;#1f4e79&#39;&gt;interventions&lt;/font&gt; est séparée d&#39;&lt;font face=&#39;Consolas&#39; color=&#39;#1f4e79&#39;&gt;incidents&lt;/font&gt; ?" vertex="1">
+                    <mxGeometry height="30" width="420" as="geometry">
+                        <mxRectangle height="30" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r4_c1" parent="just_t1_r4" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Une intervention a son technicien, ses dates et son compte rendu ; un incident peut en avoir 0 ou plusieurs." vertex="1">
+                    <mxGeometry height="30" width="980" x="420" as="geometry">
+                        <mxRectangle height="30" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r5" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="30" width="1400" y="182" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r5_c0" parent="just_t1_r5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="Un véhicule peut-il être partagé par deux clients ?" vertex="1">
+                    <mxGeometry height="30" width="420" as="geometry">
+                        <mxRectangle height="30" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r5_c1" parent="just_t1_r5" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="Non : la règle de gestion dit « un seul client ». Sinon il faudrait une association N,N, donc une table d&#39;association." vertex="1">
+                    <mxGeometry height="30" width="980" x="420" as="geometry">
+                        <mxRectangle height="30" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r6" parent="just_t1" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="" vertex="1">
+                    <mxGeometry height="46" width="1400" y="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="just_t1_r6_c0" parent="just_t1_r6" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#f5f5f5;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;fontStyle=1;" value="&lt;font face=&#39;Consolas&#39; color=&#39;#1f4e79&#39;&gt;ville&lt;/font&gt; apparaît dans stations et clients : pourquoi pas une entité VILLE ?" vertex="1">
+                    <mxGeometry height="46" width="420" as="geometry">
+                        <mxRectangle height="46" width="420" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="just_t1_r6_c1" parent="just_t1_r6" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;verticalAlign=middle;spacingLeft=6;spacingRight=6;fontSize=12;" value="La structure est imposée par les CSV. Une entité VILLE serait une évolution possible (normalisation plus poussée)." vertex="1">
+                    <mxGeometry height="46" width="980" x="420" as="geometry">
+                        <mxRectangle height="46" width="980" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
