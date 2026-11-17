@@ -39,10 +39,10 @@ Noms des colonnes en base comparés automatiquement aux en-têtes CSV : identiqu
 
 | Contrôle | Résultat | Conséquence dans le schéma |
 |---|---|---|
-| Valeurs distinctes des colonnes `statut`, `etat`, `gravite`, `categorie`, `connecteur`, `mode_paiement` | listes fermées de 2 à 4 valeurs | contraintes `CHECK … IN (…)` |
+| Valeurs distinctes des colonnes `statut`, `etat`, `gravite`, `categorie`, `connecteur`, `mode_paiement` | listes fermées de 2 à 4 valeurs | types énumérés (`CREATE TYPE … AS ENUM`) |
 | Doublons sur `code_station`, `code_borne`, `immatriculation`, emails | aucun | contraintes `UNIQUE` |
 | Clés étrangères orphelines (8 liens) | 0 | `FOREIGN KEY` sans nettoyage préalable |
-| Sessions sans fin / énergie / coût | 12 459, **toutes** `annulee` | `ck_sessions_recharge_valeurs` |
+| Sessions sans fin / énergie / coût | 12 459, **toutes** `annulee` (les 3 colonnes vides ensemble) | `ck_sessions_recharge_valeurs` : NULL seulement si annulée ; une session terminée ou interrompue sans coût est refusée |
 | Incidents sans `date_resolution` | 1 036, **tous** `ouvert` | `ck_incidents_resolution` |
 | Interventions sans `date_fin` | 428, **toutes** `en_cours` | `ck_interventions_fin` |
 | Date de fin antérieure à la date de début | 0 (sessions, incidents, interventions) | `ck_..._dates` |

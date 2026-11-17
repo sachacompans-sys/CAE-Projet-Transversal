@@ -8,6 +8,23 @@
 -- Suppression dans l'ordre inverse des dépendances (filles avant mères)
 DROP TABLE IF EXISTS interventions, incidents, paiements, sessions_recharge,
                      vehicules, bornes, clients, techniciens, stations;
+DROP TYPE IF EXISTS etat_borne, type_connecteur, statut_session, statut_paiement, moyen_paiement,
+                    categorie_incident, gravite_incident, statut_incident, statut_intervention;
+
+-- ---------------------------------------------------------------------
+-- Types énumérés : liste fermée de valeurs (relevées avec SELECT DISTINCT sur les CSV).
+-- Toute autre valeur est refusée à l'insertion. L'ordre déclaré sert au tri
+-- (ex. gravite_incident : faible < moyenne < haute).
+-- ---------------------------------------------------------------------
+CREATE TYPE etat_borne          AS ENUM ('disponible', 'maintenance', 'hors_service');
+CREATE TYPE type_connecteur     AS ENUM ('CCS', 'Type2');
+CREATE TYPE statut_session      AS ENUM ('terminee', 'interrompue', 'annulee');
+CREATE TYPE statut_paiement     AS ENUM ('accepte', 'refuse', 'en_attente');
+CREATE TYPE moyen_paiement      AS ENUM ('carte', 'application', 'abonnement');
+CREATE TYPE categorie_incident  AS ENUM ('panne_connecteur', 'surchauffe', 'defaut_reseau', 'erreur_paiement');
+CREATE TYPE gravite_incident    AS ENUM ('faible', 'moyenne', 'haute');
+CREATE TYPE statut_incident     AS ENUM ('ouvert', 'resolu');
+CREATE TYPE statut_intervention AS ENUM ('en_cours', 'terminee');
 
 -- ---------------------------------------------------------------------
 -- Tables sans clé étrangère
@@ -52,14 +69,12 @@ CREATE TABLE bornes (
     id_station    INTEGER      NOT NULL,
     code_borne    VARCHAR(20)  NOT NULL,
     puissance_kw  NUMERIC(6,2) NOT NULL,
-    connecteur    VARCHAR(10)  NOT NULL,
-    etat          VARCHAR(20)  NOT NULL,
+    connecteur    type_connecteur NOT NULL,
+    etat          etat_borne      NOT NULL,
     CONSTRAINT pk_bornes PRIMARY KEY (id_borne),
     CONSTRAINT fk_bornes_stations FOREIGN KEY (id_station) REFERENCES stations (id_station),
     CONSTRAINT uq_bornes_code_borne UNIQUE (code_borne),
-    CONSTRAINT ck_bornes_puissance_kw CHECK (puissance_kw > 0),
-    CONSTRAINT ck_bornes_connecteur CHECK (connecteur IN ('CCS', 'Type2')),
-    CONSTRAINT ck_bornes_etat CHECK (etat IN ('disponible', 'maintenance', 'hors_service'))
+    CONSTRAINT ck_bornes_puissance_kw CHECK (puissance_kw > 0)
 );
 
 -- Un véhicule appartient à un seul client
@@ -82,15 +97,15 @@ CREATE TABLE sessions_recharge (
     id_borne       INTEGER       NOT NULL,
     id_vehicule    INTEGER       NOT NULL,
     debut_session  TIMESTAMP     NOT NULL,
-    fin_session    TIMESTAMP,              -- NULL autorisé : session annulée
-    energie_kwh    NUMERIC(8,2),           -- NULL autorisé : session annulée
-    cout_eur       NUMERIC(10,2),          -- NULL autorisé : session annulée
-    statut         VARCHAR(20)   NOT NULL,
+    fin_session    TIMESTAMP,              -- NULL seulement si annulée (voir ck_sessions_recharge_valeurs)
+    energie_kwh    NUMERIC(8,2),           -- idem
+    cout_eur       NUMERIC(10,2),          -- idem
+    statut         statut_session NOT NULL,
     CONSTRAINT pk_sessions_recharge PRIMARY KEY (id_session),
     CONSTRAINT fk_sessions_recharge_bornes FOREIGN KEY (id_borne) REFERENCES bornes (id_borne),
     CONSTRAINT fk_sessions_recharge_vehicules FOREIGN KEY (id_vehicule) REFERENCES vehicules (id_vehicule),
-    CONSTRAINT ck_sessions_recharge_statut CHECK (statut IN ('terminee', 'interrompue', 'annulee')),
-    -- Seule une session annulée peut n'avoir ni fin, ni énergie, ni coût
+    -- Seule une session annulée (aucune recharge effectuée) peut n'avoir ni fin, ni énergie, ni coût.
+    -- Une session terminée ou interrompue sans coût est une anomalie : elle est refusée.
     CONSTRAINT ck_sessions_recharge_valeurs CHECK (
         statut = 'annulee'
         OR (fin_session IS NOT NULL AND energie_kwh IS NOT NULL AND cout_eur IS NOT NULL)
@@ -106,13 +121,11 @@ CREATE TABLE paiements (
     id_session     INTEGER       NOT NULL,
     date_paiement  TIMESTAMP     NOT NULL,
     montant_eur    NUMERIC(10,2) NOT NULL,
-    mode_paiement  VARCHAR(20)   NOT NULL,
-    statut         VARCHAR(20)   NOT NULL,
+    mode_paiement  moyen_paiement  NOT NULL,
+    statut         statut_paiement NOT NULL,
     CONSTRAINT pk_paiements PRIMARY KEY (id_paiement),
     CONSTRAINT fk_paiements_sessions_recharge FOREIGN KEY (id_session) REFERENCES sessions_recharge (id_session),
-    CONSTRAINT ck_paiements_montant_eur CHECK (montant_eur >= 0),
-    CONSTRAINT ck_paiements_mode_paiement CHECK (mode_paiement IN ('carte', 'application', 'abonnement')),
-    CONSTRAINT ck_paiements_statut CHECK (statut IN ('accepte', 'refuse', 'en_attente'))
+    CONSTRAINT ck_paiements_montant_eur CHECK (montant_eur >= 0)
 );
 
 -- Un incident concerne une borne
@@ -121,15 +134,12 @@ CREATE TABLE incidents (
     id_borne          INTEGER      NOT NULL,
     date_signalement  TIMESTAMP    NOT NULL,
     date_resolution   TIMESTAMP,              -- NULL tant que l'incident est ouvert
-    categorie         VARCHAR(30)  NOT NULL,
-    gravite           VARCHAR(10)  NOT NULL,
-    statut            VARCHAR(10)  NOT NULL,
+    categorie         categorie_incident NOT NULL,
+    gravite           gravite_incident   NOT NULL,
+    statut            statut_incident    NOT NULL,
     description       VARCHAR(255) NOT NULL,
     CONSTRAINT pk_incidents PRIMARY KEY (id_incident),
     CONSTRAINT fk_incidents_bornes FOREIGN KEY (id_borne) REFERENCES bornes (id_borne),
-    CONSTRAINT ck_incidents_categorie CHECK (categorie IN ('panne_connecteur', 'surchauffe', 'defaut_reseau', 'erreur_paiement')),
-    CONSTRAINT ck_incidents_gravite CHECK (gravite IN ('faible', 'moyenne', 'haute')),
-    CONSTRAINT ck_incidents_statut CHECK (statut IN ('ouvert', 'resolu')),
     -- Ouvert <=> pas de date de résolution
     CONSTRAINT ck_incidents_resolution CHECK ((statut = 'ouvert') = (date_resolution IS NULL)),
     CONSTRAINT ck_incidents_dates CHECK (date_resolution >= date_signalement)
@@ -142,12 +152,11 @@ CREATE TABLE interventions (
     id_technicien    INTEGER      NOT NULL,
     date_debut       TIMESTAMP    NOT NULL,
     date_fin         TIMESTAMP,              -- NULL tant que l'intervention est en cours
-    statut           VARCHAR(20)  NOT NULL,
+    statut           statut_intervention NOT NULL,
     compte_rendu     VARCHAR(255) NOT NULL,
     CONSTRAINT pk_interventions PRIMARY KEY (id_intervention),
     CONSTRAINT fk_interventions_incidents FOREIGN KEY (id_incident) REFERENCES incidents (id_incident),
     CONSTRAINT fk_interventions_techniciens FOREIGN KEY (id_technicien) REFERENCES techniciens (id_technicien),
-    CONSTRAINT ck_interventions_statut CHECK (statut IN ('en_cours', 'terminee')),
     -- En cours <=> pas de date de fin
     CONSTRAINT ck_interventions_fin CHECK ((statut = 'en_cours') = (date_fin IS NULL)),
     CONSTRAINT ck_interventions_dates CHECK (date_fin >= date_debut)
