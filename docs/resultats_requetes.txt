@@ -1,0 +1,503 @@
+Résultats de sql/03_requetes.sql — exécuté le 2026-11-23 14:31 sur la base urbanwatt
+
+======================================================================
+-- Q1 : Clients ayant fait au moins une session dans la station ST-LIL, sans doublon
+Lignes : 1011
+ id_client |  nom  | prenom  
+-----------+-------+---------
+        50 | Adam  | Mila
+      1072 | André | Adam
+      5377 | André | Amine
+      7415 | André | Antoine
+      1486 | André | Chloé
+     11429 | André | Clara
+     12015 | André | Clara
+      8873 | André | Émilie
+      7325 | André | Emma
+     13089 | André | Emma
+(10 rows)
+
+
+======================================================================
+-- Q2 : Bornes de la station ST-TOU, triées par puissance décroissante
+Lignes : 5
+  code_borne  | puissance_kw | connecteur |     etat     
+--------------+--------------+------------+--------------
+ BR-TOU-01    |       150.00 | Type2      | maintenance
+ BR-TOU-04    |       100.00 | CCS        | hors_service
+ BR-TOU-03    |        50.00 | CCS        | disponible
+ BR-TOU-02    |        22.00 | CCS        | disponible
+ BR-TOU-00488 |         7.00 | Type2      | disponible
+(5 rows)
+
+
+======================================================================
+-- Q3 : Historique des sessions du véhicule ESSAI-0001, de la plus récente à la plus ancienne
+Lignes : 29
+    debut_session    |     fin_session     |  code_borne  | energie_kwh | cout_eur |  statut  
+---------------------+---------------------+--------------+-------------+----------+----------
+ 2026-11-02 11:00:00 | 2026-11-02 13:57:00 | BR-LIL-00231 |       12.29 |     5.27 | terminee
+ 2026-10-22 15:20:00 |                     | BR-LIL-00154 |             |          | annulee
+ 2026-10-17 10:10:00 | 2026-10-17 11:49:00 | BR-CAE-00215 |       32.61 |    18.62 | terminee
+ 2026-10-12 16:15:00 |                     | BR-BOR-02    |             |          | annulee
+ 2026-10-05 09:15:00 | 2026-10-05 10:01:00 | BR-TOU-04    |       17.78 |     6.93 | terminee
+ 2026-09-21 15:55:00 | 2026-09-21 17:34:00 | BR-LIL-00154 |       16.94 |     5.72 | terminee
+ 2026-09-20 18:15:00 | 2026-09-20 18:44:00 | BR-LIL-02    |       31.14 |    18.64 | terminee
+ 2026-09-18 06:15:00 | 2026-09-18 06:40:00 | BR-LIL-00181 |       30.66 |    14.33 | terminee
+ 2026-09-08 13:30:00 | 2026-09-08 15:00:00 | BR-NAN-01    |       31.75 |    12.38 | terminee
+ 2026-09-05 12:00:00 | 2026-09-05 12:53:00 | BR-NAN-04    |       22.49 |     8.77 | terminee
+(10 rows)
+
+
+======================================================================
+-- Q4 : Clients sans aucune session annulée ou interrompue, y compris ceux qui n'ont jamais rechargé
+Lignes : 5611
+ id_client |   nom    | prenom  
+-----------+----------+---------
+        53 | Michel   | Camille
+        58 | François | Clara
+        62 | Dubois   | Chloé
+        65 | Laurent  | Léa
+        66 | Henry    | Amine
+        67 | Vincent  | Ilyes
+        70 | Michel   | Ilyes
+        72 | Martin   | Jade
+        73 | Michel   | Lucas
+        75 | Moreau   | Inès
+(10 rows)
+
+
+======================================================================
+-- Q5 : Sessions terminées dans la station ST-LYO, triées par énergie décroissante
+Lignes : 2064
+ id_session |    debut_session    | energie_kwh 
+------------+---------------------+-------------
+     202712 | 2026-07-21 20:55:00 |       60.28
+       5028 | 2026-05-15 14:10:00 |       59.44
+       4447 | 2026-08-21 17:30:00 |       59.28
+       4861 | 2026-04-30 17:30:00 |       59.28
+       5276 | 2026-04-11 20:35:00 |       59.21
+       5991 | 2026-04-22 20:50:00 |       58.85
+       5155 | 2026-09-20 12:00:00 |       58.82
+       5135 | 2026-04-19 18:25:00 |       58.70
+       4994 | 2026-04-08 16:00:00 |       58.42
+       4742 | 2026-07-31 09:05:00 |       57.95
+(10 rows)
+
+
+======================================================================
+-- Q6 : Sessions du client n° 10 avec le véhicule, la station, la date et le statut
+Lignes : 70
+ immatriculation |      nom_station       |    debut_session    |   statut    
+-----------------+------------------------+---------------------+-------------
+ ESSAI-0010      | Lyon Part-Dieu         | 2026-02-04 14:30:00 | terminee
+ ESSAI-0054      | Nantes Centre          | 2026-02-15 12:30:00 | terminee
+ ESSAI-0054      | Toulouse Saint-Cyprien | 2026-03-19 10:15:00 | terminee
+ ESSAI-0054      | Bordeaux Bastide       | 2026-04-05 12:30:00 | terminee
+ ESSAI-0012284   | Bordeaux Est 2         | 2026-04-06 15:50:00 | terminee
+ ESSAI-0003449   | Bordeaux Rives 3       | 2026-04-15 19:25:00 | interrompue
+ ESSAI-0010      | Lille République       | 2026-04-17 18:00:00 | terminee
+ ESSAI-0054      | Bordeaux Gare 4        | 2026-04-19 08:55:00 | terminee
+ ESSAI-0054      | Bordeaux Rives 3       | 2026-04-21 18:25:00 | terminee
+ ESSAI-0003449   | Bordeaux Rives 3       | 2026-04-29 15:10:00 | terminee
+(10 rows)
+
+
+======================================================================
+-- Q7 : Incidents de gravité haute avec la borne, la station, la catégorie, la date et l'état de résolution
+Lignes : 997
+  code_borne  |      nom_station      |    categorie     |  date_signalement   | statut |   date_resolution   
+--------------+-----------------------+------------------+---------------------+--------+---------------------
+ BR-BRE-00106 | Brest Marché 3        | panne_connecteur | 2026-11-11 20:10:00 | ouvert | 
+ BR-AMI-00365 | Amiens Rives 2        | erreur_paiement  | 2026-11-11 12:50:00 | ouvert | 
+ BR-TOU-00227 | Toulouse Innovation 6 | surchauffe       | 2026-11-11 10:10:00 | ouvert | 
+ BR-AMI-00260 | Amiens Ouest 6        | erreur_paiement  | 2026-11-10 16:45:00 | ouvert | 
+ BR-BOR-00025 | Bordeaux Rives 3      | erreur_paiement  | 2026-11-10 16:25:00 | ouvert | 
+ BR-NIC-00332 | Nice Gare 4           | panne_connecteur | 2026-11-10 08:45:00 | ouvert | 
+ BR-NCY-00262 | Nancy Gare 5          | panne_connecteur | 2026-11-09 14:30:00 | ouvert | 
+ BR-MON-00437 | Montpellier Centre 5  | surchauffe       | 2026-11-09 08:25:00 | resolu | 2026-11-10 09:25:00
+ BR-AMI-00592 | Amiens Est 4          | erreur_paiement  | 2026-11-09 07:55:00 | resolu | 2026-11-09 21:55:00
+ BR-LYO-00117 | Lyon Innovation 2     | surchauffe       | 2026-11-08 20:40:00 | resolu | 2026-11-10 02:40:00
+(10 rows)
+
+
+======================================================================
+-- Q8 : Incidents de la station ST-BOR, du plus récent au plus ancien, avec leurs interventions éventuelles
+Lignes : 55
+ id_incident | code_borne |  date_signalement   | statut | id_intervention |     date_debut      | statut_intervention 
+-------------+------------+---------------------+--------+-----------------+---------------------+---------------------
+        3798 | BR-BOR-03  | 2026-11-08 08:45:00 | resolu |            3162 | 2026-11-08 09:34:00 | terminee
+         915 | BR-BOR-01  | 2026-11-07 11:10:00 | resolu |             767 | 2026-11-07 12:33:00 | terminee
+        1303 | BR-BOR-04  | 2026-11-01 12:20:00 | resolu |            1087 | 2026-11-01 13:57:00 | terminee
+        4181 | BR-BOR-02  | 2026-10-28 19:45:00 | resolu |            3482 | 2026-10-28 21:31:00 | terminee
+        1075 | BR-BOR-01  | 2026-10-25 13:45:00 | resolu |             897 | 2026-10-25 15:35:00 | terminee
+        1476 | BR-BOR-01  | 2026-10-23 19:25:00 | ouvert |            1235 | 2026-10-23 21:36:00 | en_cours
+         274 | BR-BOR-03  | 2026-10-23 10:25:00 | resolu |             233 | 2026-10-23 12:09:00 | terminee
+         118 | BR-BOR-01  | 2026-10-14 16:30:00 | ouvert |              99 | 2026-10-14 19:00:00 | en_cours
+        2574 | BR-BOR-02  | 2026-10-14 15:05:00 | resolu |            2137 | 2026-10-14 17:34:00 | terminee
+        1939 | BR-BOR-03  | 2026-10-14 08:20:00 | ouvert |                 |                     | 
+(10 rows)
+
+
+======================================================================
+-- Q9 : Sessions annulées ou interrompues dans la station ST-NAN, avec le véhicule, la date et le statut
+Lignes : 252
+ id_session | immatriculation |    debut_session    |   statut    
+------------+-----------------+---------------------+-------------
+        443 | ESSAI-0018      | 2026-02-04 10:45:00 | annulee
+        419 | ESSAI-0043      | 2026-02-22 15:45:00 | annulee
+        446 | ESSAI-0009      | 2026-03-06 18:00:00 | interrompue
+       8318 | ESSAI-0009691   | 2026-04-01 12:20:00 | annulee
+     207361 | ESSAI-0008253   | 2026-04-02 10:10:00 | interrompue
+       7881 | ESSAI-0007379   | 2026-04-03 16:35:00 | interrompue
+       8750 | ESSAI-0005149   | 2026-04-04 18:50:00 | annulee
+     207778 | ESSAI-0001794   | 2026-04-05 17:05:00 | interrompue
+       8872 | ESSAI-0000260   | 2026-04-06 08:20:00 | interrompue
+       8876 | ESSAI-0012752   | 2026-04-08 11:05:00 | interrompue
+(10 rows)
+
+
+======================================================================
+-- Q10 : Clients ayant au moins une session terminée de plus de 30 kWh, sans doublon
+Lignes : 9790
+ id_client |  nom  | prenom 
+-----------+-------+--------
+        50 | Adam  | Mila
+      4793 | André | Adam
+      5896 | André | Adam
+      3756 | André | Adam
+      4860 | André | Adam
+      4528 | André | Adam
+      1072 | André | Adam
+     12460 | André | Amine
+      9013 | André | Amine
+      5636 | André | Amine
+(10 rows)
+
+
+======================================================================
+-- Q11 : Nombre de bornes disponibles, en maintenance et hors service pour chaque station
+Lignes : 120
+ code_station |       nom_station       | disponibles | en_maintenance | hors_service 
+--------------+-------------------------+-------------+----------------+--------------
+ ST-AMI-001   | Amiens Hôtel de Ville 1 |           5 |              0 |            0
+ ST-AMI-002   | Amiens Rives 2          |           5 |              0 |            0
+ ST-AMI-003   | Amiens Est 3            |           5 |              0 |            0
+ ST-AMI-004   | Amiens Est 4            |           4 |              1 |            0
+ ST-AMI-005   | Amiens Nord 5           |           5 |              0 |            0
+ ST-AMI-006   | Amiens Ouest 6          |           4 |              1 |            0
+ ST-AMI-007   | Amiens Rives 7          |           4 |              1 |            0
+ ST-ANG-001   | Angers Marché 1         |           5 |              0 |            0
+ ST-ANG-002   | Angers Campus 2         |           5 |              0 |            0
+ ST-ANG-003   | Angers Gare 3           |           5 |              0 |            0
+(10 rows)
+
+
+======================================================================
+-- Q12 : La ou les sessions terminées de la station ST-LIL dont l'énergie délivrée est maximale
+Lignes : 1
+ id_session | code_borne |    debut_session    | energie_kwh 
+------------+------------+---------------------+-------------
+       1285 | BR-LIL-02  | 2026-08-25 08:00:00 |       60.87
+(1 row)
+
+
+======================================================================
+-- Q13 : Nombre de véhicules distincts ayant au moins une session terminée, pour chaque station
+Lignes : 120
+ code_station |      nom_station       | nb_vehicules 
+--------------+------------------------+--------------
+ ST-NCY-004   | Nancy Sud 4            |         1220
+ ST-LYO       | Lyon Part-Dieu         |         1213
+ ST-AMI-004   | Amiens Est 4           |         1188
+ ST-BOR-003   | Bordeaux Rives 3       |         1187
+ ST-BRE-002   | Brest Centre 2         |         1185
+ ST-BRE-004   | Brest Sud 4            |         1185
+ ST-LIL       | Lille République       |         1183
+ ST-PAR-003   | Paris Hôtel de Ville 3 |         1179
+ ST-NIC-005   | Nice Ouest 5           |         1177
+ ST-MON       | Montpellier Antigone   |         1173
+(10 rows)
+
+
+======================================================================
+-- Q14 : Énergie moyenne délivrée par véhicule sur ses sessions terminées, en gardant les véhicules sans recharge
+Lignes : 18000
+ id_vehicule | immatriculation | nb_sessions_terminees | energie_moyenne_kwh 
+-------------+-----------------+-----------------------+---------------------
+           1 | ESSAI-0001      |                    25 |               23.39
+           2 | ESSAI-0002      |                    20 |               24.52
+           3 | ESSAI-0003      |                    32 |               24.85
+           4 | ESSAI-0004      |                    18 |               25.29
+           5 | ESSAI-0005      |                    20 |               25.27
+           6 | ESSAI-0006      |                    18 |               20.76
+           7 | ESSAI-0007      |                    29 |               21.18
+           8 | ESSAI-0008      |                    25 |               24.59
+           9 | ESSAI-0009      |                    20 |               27.92
+          10 | ESSAI-0010      |                    21 |               21.65
+(10 rows)
+
+
+======================================================================
+-- Q15 : Pour chaque station, la plus grande énergie délivrée en une session terminée et la borne associée
+Lignes : 121
+ code_station |       nom_station       |  code_borne  | energie_max 
+--------------+-------------------------+--------------+-------------
+ ST-AMI-001   | Amiens Hôtel de Ville 1 | BR-AMI-00135 |       61.20
+ ST-AMI-002   | Amiens Rives 2          | BR-AMI-00467 |       61.14
+ ST-AMI-003   | Amiens Est 3            | BR-AMI-00512 |       60.36
+ ST-AMI-004   | Amiens Est 4            | BR-AMI-00377 |       61.05
+ ST-AMI-005   | Amiens Nord 5           | BR-AMI-00598 |       60.65
+ ST-AMI-006   | Amiens Ouest 6          | BR-AMI-00414 |       58.51
+ ST-AMI-007   | Amiens Rives 7          | BR-AMI-00212 |       60.75
+ ST-ANG-001   | Angers Marché 1         | BR-ANG-00579 |       61.58
+ ST-ANG-002   | Angers Campus 2         | BR-ANG-00398 |       60.68
+ ST-ANG-003   | Angers Gare 3           | BR-ANG-00054 |       60.73
+(10 rows)
+
+
+======================================================================
+-- Q16 : Sessions du véhicule ESSAI-0007 avec la ville, la station, la borne et la date, par ordre chronologique
+Lignes : 32
+    ville    |      nom_station       |  code_borne  |    debut_session    |  statut  
+-------------+------------------------+--------------+---------------------+----------
+ Toulouse    | Toulouse Saint-Cyprien | BR-TOU-03    | 2026-02-04 09:30:00 | terminee
+ Nantes      | Nantes Centre          | BR-NAN-03    | 2026-02-24 18:00:00 | terminee
+ Montpellier | Montpellier Antigone   | BR-MON-03    | 2026-03-16 07:30:00 | terminee
+ Lille       | Lille Nord 3           | BR-LIL-00193 | 2026-04-10 15:30:00 | terminee
+ Lille       | Lille Est 2            | BR-LIL-00312 | 2026-05-13 06:45:00 | terminee
+ Montpellier | Montpellier Antigone   | BR-MON-04    | 2026-05-28 17:00:00 | terminee
+ Toulouse    | Toulouse Marché 2      | BR-TOU-00462 | 2026-05-29 07:20:00 | terminee
+ Lille       | Lille République       | BR-LIL-01    | 2026-06-01 17:05:00 | terminee
+ Lille       | Lille Gare 4           | BR-LIL-00096 | 2026-06-03 08:40:00 | terminee
+ Paris       | Paris Hôtel de Ville 3 | BR-PAR-00301 | 2026-06-14 07:55:00 | annulee
+(10 rows)
+
+
+======================================================================
+-- Q17 : Propriétaires et véhicules ayant utilisé au moins une fois la borne BR-NAN-01, sans doublon
+Lignes : 312
+ id_client |  nom  | prenom  | immatriculation |   marque   | modele  
+-----------+-------+---------+-----------------+------------+---------
+      8883 | André | Arthur  | ESSAI-0009018   | BMW        | i4
+     13897 | André | Camille | ESSAI-0009660   | Volkswagen | ID.3
+      1596 | André | Inès    | ESSAI-0003273   | Peugeot    | e-208
+      1596 | André | Inès    | ESSAI-0007131   | Mercedes   | EQA
+        23 | André | Louise  | ESSAI-0010825   | Tesla      | Model Y
+        23 | André | Louise  | ESSAI-0023      | Fiat       | 500e
+      4965 | André | Maël    | ESSAI-0011966   | BMW        | i4
+      5068 | André | Mathis  | ESSAI-0003955   | Volkswagen | ID.3
+      6149 | André | Noah    | ESSAI-0013063   | Volkswagen | ID.3
+      3437 | André | Sofia   | ESSAI-0003657   | Mercedes   | EQA
+(10 rows)
+
+
+======================================================================
+-- Q18 : Bornes ayant connu au moins deux incidents, avec leur nombre et la date du plus récent
+Lignes : 599
+  code_borne  |      nom_station       | nb_incidents |  dernier_incident   
+--------------+------------------------+--------------+---------------------
+ BR-BOR-01    | Bordeaux Bastide       |           18 | 2026-11-07 11:10:00
+ BR-STR-00093 | Strasbourg Campus 3    |           17 | 2026-10-11 13:10:00
+ BR-NAN-04    | Nantes Centre          |           16 | 2026-11-04 10:10:00
+ BR-LIL-00578 | Lille Nord 3           |           15 | 2026-11-11 13:10:00
+ BR-LYO-00176 | Lyon Marché 5          |           15 | 2026-11-06 14:10:00
+ BR-LYO-00468 | Lyon Marché 5          |           15 | 2026-10-17 14:55:00
+ BR-MAR-00570 | Marseille Rives 3      |           15 | 2026-10-12 14:45:00
+ BR-PAR-00143 | Paris Hôtel de Ville 2 |           15 | 2026-11-11 19:10:00
+ BR-PAR-00275 | Paris Ouest 1          |           15 | 2026-10-29 12:55:00
+ BR-PER-00090 | Perpignan Parc 7       |           15 | 2026-10-17 19:30:00
+(10 rows)
+
+
+======================================================================
+-- Q19 : Clients ayant au moins une session terminée dans chacune des stations du réseau (division relationnelle)
+Lignes : 0
+ id_client | nom | prenom 
+-----------+-----+--------
+(0 rows)
+
+
+======================================================================
+-- Q20 : Classement des clients selon l'énergie consommée : client, nombre de sessions, énergie et rang
+Lignes : 10521
+ id_client |   nom    | prenom  | nb_sessions | energie_totale_kwh | rang 
+-----------+----------+---------+-------------+--------------------+------
+     11639 | Fontaine | Emma    |         122 |            2865.03 |    1
+     14832 | Henry    | Hugo    |         105 |            2578.26 |    2
+     14119 | Lopez    | Noah    |         110 |            2440.57 |    3
+      8544 | Bernard  | Noah    |          96 |            2340.23 |    4
+      3597 | Bernard  | Yanis   |         106 |            2326.28 |    5
+     13461 | Dubois   | Raphaël |         101 |            2315.04 |    6
+      6047 | Faure    | Antoine |          91 |            2306.87 |    7
+      6306 | Garnier  | Émilie  |          99 |            2291.57 |    8
+      4933 | Garnier  | Thomas  |         119 |            2234.70 |    9
+      3856 | Girard   | Adam    |          85 |            2125.97 |   10
+(10 rows)
+
+
+======================================================================
+-- Q21 : Clients ayant subi au moins deux sessions interrompues, avec le nombre total d'interruptions
+Lignes : 5340
+ id_client |   nom   | prenom  | nb_interruptions 
+-----------+---------+---------+------------------
+     13461 | Dubois  | Raphaël |               14
+      8544 | Bernard | Noah    |               12
+     13793 | Dubois  | Noah    |               12
+         9 | Garcia  | Chloé   |               11
+      2829 | Vincent | Lucie   |               11
+      4933 | Garnier | Thomas  |               11
+      5174 | Moreau  | Émilie  |               11
+      6657 | Faure   | Jade    |               11
+      8570 | André   | Amine   |               11
+     10225 | Laurent | Noah    |               11
+(10 rows)
+
+
+======================================================================
+-- Q22 : Chiffre d'affaires encaissé par station, à partir des seuls paiements acceptés, par ordre décroissant
+Lignes : 120
+ code_station |     nom_station      | chiffre_affaires_eur 
+--------------+----------------------+----------------------
+ ST-REN-007   | Rennes Est 7         |             24118.72
+ ST-MON       | Montpellier Antigone |             24027.56
+ ST-REI-003   | Reims Ouest 3        |             23916.57
+ ST-BOR-002   | Bordeaux Est 2       |             23786.30
+ ST-BRE-004   | Brest Sud 4          |             23432.04
+ ST-LYO       | Lyon Part-Dieu       |             23330.30
+ ST-LIL       | Lille République     |             23128.97
+ ST-REN-004   | Rennes Parc 4        |             23111.18
+ ST-NAN       | Nantes Centre        |             22853.38
+ ST-NAN-002   | Nantes Est 2         |             22778.24
+(10 rows)
+
+
+======================================================================
+-- Q23 : Vrai/faux : le véhicule ESSAI-0007 a-t-il déjà terminé une session dans la station ST-BOR ?
+Lignes : 1
+ essai_0007_a_termine_a_st_bor 
+-------------------------------
+ t
+(1 row)
+
+
+======================================================================
+-- Q24 : Les 10 sessions ayant donné lieu aux paiements acceptés les plus élevés, avec client, véhicule et station
+Lignes : 10
+ id_session | montant_eur |    nom    | prenom  | immatriculation |       nom_station       
+------------+-------------+-----------+---------+-----------------+-------------------------
+      95433 |       37.40 | Bernard   | Mathis  | ESSAI-0012492   | Toulouse Gare 3
+      49074 |       37.10 | Fournier  | Louis   | ESSAI-0007410   | Rouen Marché 4
+     169091 |       37.04 | Roux      | Amine   | ESSAI-0016137   | Brest Est 1
+     137335 |       36.97 | Laurent   | Gabriel | ESSAI-0014136   | Rennes Est 7
+      46147 |       36.96 | Martin    | Inès    | ESSAI-0003399   | Dijon Innovation 1
+     227730 |       36.91 | Lefebvre  | Sarah   | ESSAI-0010133   | Bordeaux Bastide
+     182839 |       36.89 | Leroy     | Maël    | ESSAI-0001019   | Nice Hôtel de Ville 2
+      27655 |       36.85 | Muller    | Emma    | ESSAI-0014268   | Rennes Hôtel de Ville 3
+      56510 |       36.79 | Leroy     | Maël    | ESSAI-0001019   | Bordeaux Gare 4
+     166342 |       36.76 | Chevalier | Louis   | ESSAI-0005953   | Perpignan Centre 5
+(10 rows)
+
+
+======================================================================
+-- Q25 : Bornes n'ayant jamais eu d'incident signalé, y compris celles qui ont enregistré des recharges
+Lignes : 0
+ code_borne | nom_station | etat 
+------------+-------------+------
+(0 rows)
+
+
+======================================================================
+-- Q26 : Pour chaque véhicule, la ou les sessions terminées dont l'énergie délivrée est la plus élevée
+Lignes : 18017
+ immatriculation | id_session |    debut_session    | energie_kwh 
+-----------------+------------+---------------------+-------------
+ ESSAI-0000065   |      79561 | 2026-04-03 13:05:00 |       56.72
+ ESSAI-0000066   |     236302 | 2026-08-21 11:15:00 |       40.51
+ ESSAI-0000067   |      28821 | 2026-11-10 14:20:00 |       54.32
+ ESSAI-0000068   |     187245 | 2026-07-08 11:25:00 |       33.12
+ ESSAI-0000069   |      98781 | 2026-05-15 06:20:00 |       48.50
+ ESSAI-0000070   |      19688 | 2026-09-17 08:50:00 |       43.32
+ ESSAI-0000071   |     107324 | 2026-06-15 20:55:00 |       56.61
+ ESSAI-0000072   |     159682 | 2026-07-10 11:10:00 |       38.35
+ ESSAI-0000073   |      99932 | 2026-06-10 05:25:00 |       53.24
+ ESSAI-0000074   |     206261 | 2026-07-18 10:30:00 |       44.80
+(10 rows)
+
+
+======================================================================
+-- Q27 : Pour chaque station, nombre de bornes, puissance totale installée et énergie moyenne par session terminée, sans double comptage
+Lignes : 120
+ code_station |       nom_station       | nb_bornes | puissance_totale_kw | energie_moyenne_kwh 
+--------------+-------------------------+-----------+---------------------+---------------------
+ ST-AMI-001   | Amiens Hôtel de Ville 1 |         5 |              436.00 |               22.77
+ ST-AMI-002   | Amiens Rives 2          |         5 |              472.00 |               24.57
+ ST-AMI-003   | Amiens Est 3            |         5 |              236.00 |               22.95
+ ST-AMI-004   | Amiens Est 4            |         5 |              572.00 |               23.98
+ ST-AMI-005   | Amiens Nord 5           |         5 |              721.00 |               20.15
+ ST-AMI-006   | Amiens Ouest 6          |         5 |              468.00 |               23.07
+ ST-AMI-007   | Amiens Rives 7          |         5 |              850.00 |               25.33
+ ST-ANG-001   | Angers Marché 1         |         5 |              668.00 |               23.75
+ ST-ANG-002   | Angers Campus 2         |         5 |              444.00 |               24.93
+ ST-ANG-003   | Angers Gare 3           |         5 |              454.00 |               23.54
+(10 rows)
+
+
+======================================================================
+-- Q28 : Techniciens avec le nombre d'interventions terminées et la durée totale passée, y compris ceux sans intervention terminée
+Lignes : 120
+ id_technicien |    nom    | prenom  | nb_interventions_terminees |   duree_totale    
+---------------+-----------+---------+----------------------------+-------------------
+            82 | Faure     | Raphaël |                         51 | 74 days 523:23:00
+           104 | Vincent   | Manon   |                         46 | 66 days 599:21:00
+            69 | Michel    | Arthur  |                         41 | 64 days 494:29:00
+            70 | Dupont    | Ilyes   |                         39 | 63 days 377:43:00
+            56 | Faure     | Camille |                         41 | 56 days 466:06:00
+             9 | Robert    | Nina    |                         44 | 53 days 527:37:00
+            57 | Chevalier | Nina    |                         41 | 52 days 521:05:00
+            36 | Leroy     | Nina    |                         39 | 55 days 441:00:00
+            48 | Marchand  | Inès    |                         37 | 51 days 497:59:00
+            92 | Laurent   | Emma    |                         40 | 50 days 503:27:00
+(10 rows)
+
+
+======================================================================
+-- Q29 : Le ou les jours ayant enregistré le plus grand nombre de sessions terminées sur tout le réseau
+Lignes : 2
+    jour    | nb_sessions 
+------------+-------------
+ 2026-08-07 |        1081
+ 2026-09-20 |        1081
+(2 rows)
+
+
+======================================================================
+-- Q30 : Les cinq bornes avec le plus de sessions interrompues, leur nombre total de sessions et leur taux d'interruption
+Lignes : 5
+  code_borne  |        nom_station        | nb_interrompues | nb_sessions | taux_interruption_pct 
+--------------+---------------------------+-----------------+-------------+-----------------------
+ BR-LIL-00312 | Lille Est 2               |              69 |         568 |                  12.1
+ BR-NIC-00292 | Nice Ouest 5              |              67 |         552 |                  12.1
+ BR-CLF-00520 | Clermont-Ferrand Campus 2 |              66 |         535 |                  12.3
+ BR-CLF-00323 | Clermont-Ferrand Marché 1 |              64 |         569 |                  11.2
+ BR-PER-00202 | Perpignan Marché 3        |              63 |         542 |                  11.6
+(5 rows)
+
+
+======================================================================
+-- Q31 : Pour chaque véhicule, sessions terminées dont l'énergie dépasse celle de sa session terminée précédente
+Lignes : 99463
+ immatriculation |   debut_precedent   | energie_precedente |    debut_session    | energie_kwh 
+-----------------+---------------------+--------------------+---------------------+-------------
+ ESSAI-0000065   | 2026-04-11 12:55:00 |              23.56 | 2026-04-21 10:50:00 |       24.59
+ ESSAI-0000065   | 2026-04-21 10:50:00 |              24.59 | 2026-04-24 18:50:00 |       45.82
+ ESSAI-0000065   | 2026-05-09 19:05:00 |              21.63 | 2026-06-01 20:40:00 |       54.89
+ ESSAI-0000065   | 2026-07-10 12:25:00 |              25.55 | 2026-08-14 18:00:00 |       56.00
+ ESSAI-0000065   | 2026-08-20 14:20:00 |              15.05 | 2026-08-21 16:00:00 |       42.72
+ ESSAI-0000065   | 2026-09-03 07:00:00 |              16.85 | 2026-09-09 05:30:00 |       31.57
+ ESSAI-0000065   | 2026-09-09 05:30:00 |              31.57 | 2026-10-04 18:55:00 |       51.43
+ ESSAI-0000065   | 2026-10-28 17:30:00 |              17.48 | 2026-11-05 11:20:00 |       40.21
+ ESSAI-0000065   | 2026-11-06 18:35:00 |              17.46 | 2026-11-08 19:05:00 |       40.83
+ ESSAI-0000066   | 2026-04-22 16:45:00 |              18.67 | 2026-06-14 16:20:00 |       27.19
+(10 rows)
+
