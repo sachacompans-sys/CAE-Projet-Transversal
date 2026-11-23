@@ -1,0 +1,39 @@
+Sortie de sql/02_verifications.sql — exécuté le  sur la base urbanwatt
+
+    table_name     | nb_attendu | nb_reel | controle 
+-------------------+------------+---------+----------
+ bornes            |        600 |     600 | OK
+ clients           |      15000 |   15000 | OK
+ incidents         |       5000 |    5000 | OK
+ interventions     |       4162 |    4162 | OK
+ paiements         |     217300 |  217300 | OK
+ sessions_recharge |     250000 |  250000 | OK
+ stations          |        120 |     120 | OK
+ techniciens       |        120 |     120 | OK
+ vehicules         |      18000 |   18000 | OK
+(9 rows)
+
+           reference            | nb_orphelins | controle 
+--------------------------------+--------------+----------
+ bornes -> stations             |            0 | OK
+ interventions -> techniciens   |            0 | OK
+ incidents -> bornes            |            0 | OK
+ interventions -> incidents     |            0 | OK
+ vehicules -> clients           |            0 | OK
+ sessions_recharge -> bornes    |            0 | OK
+ sessions_recharge -> vehicules |            0 | OK
+ paiements -> sessions_recharge |            0 | OK
+(8 rows)
+
+   statut    | nb_sessions 
+-------------+-------------
+ terminee    |      217300
+ interrompue |       20241
+ annulee     |       12459
+(3 rows)
+
+ nb_statuts_presents | controle 
+---------------------+----------
+                   3 | OK
+(1 row)
+
