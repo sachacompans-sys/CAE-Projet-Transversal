@@ -12,7 +12,7 @@ Le prototype comprend la base (schéma, import, contrôles), 31 requêtes d'anal
 
 | Dossier | Contenu | Points d'entrée |
 |---|---|---|
-| [`docs/`](docs/) | Besoins, règles de gestion, MCD, MLD, dictionnaire, journal d'import, tests, résultats, captures | [`conception.md`](docs/conception.md), [`mcd.png`](docs/mcd.png), [`mld.png`](docs/mld.png), [`import.md`](docs/import.md), [`rapport_tests.md`](docs/rapport_tests.md), [`captures/`](docs/captures/) |
+| [`docs/`](docs/) | Besoins, règles de gestion, MCD, MLD, dictionnaire, journal d'import, tests, résultats, captures | [`conception.md`](docs/conception.md), [`mcd.png`](docs/mcd.png), [`mld.png`](docs/mld.png), [`import.md`](docs/import.md), [`repartition_taches.md`](docs/repartition_taches.md), [`rapport_tests.md`](docs/rapport_tests.md), [`captures/`](docs/captures/) |
 | [`sql/`](sql/) | Schéma, import, contrôles, requêtes, index, rôle applicatif | [`01_schema.sql`](sql/01_schema.sql), [`import.sql`](sql/import.sql), [`02_verifications.sql`](sql/02_verifications.sql), [`03_requetes.sql`](sql/03_requetes.sql), [`04_index.sql`](sql/04_index.sql), [`05_role_applicatif.sql`](sql/05_role_applicatif.sql) |
 | [`app/`](app/) | API FastAPI + page web, dépendances, mode d'exécution | [`app/README.md`](app/README.md), [`main.py`](app/main.py), [`static/index.html`](app/static/index.html) |
 | [`infra/`](infra/) | Docker Compose (PostgreSQL 16 + pgAdmin 4), exemple de variables d'environnement | [`docker-compose.yml`](infra/docker-compose.yml), [`.env.example`](infra/.env.example) |
@@ -72,7 +72,7 @@ Un assistant IA a été utilisé pour la rédaction de la documentation et la v�
 
 ## Répartition des contributions (mini gestion de projet)
 
-Principe : chaque livrable a un responsable et un relecteur, pour que chacun puisse expliquer tout le projet à l'oral (la mise en situation individuelle porte sur l'ensemble).
+Principe : chaque livrable a un responsable et un relecteur, pour que chacun puisse expliquer tout le projet à l'oral (la mise en situation individuelle porte sur l'ensemble). Mini-plan de répartition : [`docs/repartition_taches.md`](docs/repartition_taches.md).
 
 **Règles de collaboration**
 - Une branche Git par personne (`Matys`, `Sacha`), fusion dans `main` après relecture croisée.
