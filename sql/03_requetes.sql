@@ -83,3 +83,64 @@ JOIN stations st           ON st.id_station = b.id_station
 LEFT JOIN interventions it ON it.id_incident = i.id_incident
 WHERE st.code_station = 'ST-BOR'
 ORDER BY i.date_signalement DESC;
+
+
+-- Q16 : Sessions du véhicule ESSAI-0007 avec la ville, la station, la borne et la date, par ordre chronologique
+SELECT st.ville, st.nom_station, b.code_borne, s.debut_session, s.statut
+FROM sessions_recharge s
+JOIN vehicules v ON v.id_vehicule = s.id_vehicule
+JOIN bornes b    ON b.id_borne = s.id_borne
+JOIN stations st ON st.id_station = b.id_station
+WHERE v.immatriculation = 'ESSAI-0007'
+ORDER BY s.debut_session;
+
+
+-- Q17 : Propriétaires et véhicules ayant utilisé au moins une fois la borne BR-NAN-01, sans doublon
+SELECT DISTINCT c.id_client, c.nom, c.prenom, v.immatriculation, v.marque, v.modele
+FROM sessions_recharge s
+JOIN bornes b    ON b.id_borne = s.id_borne
+JOIN vehicules v ON v.id_vehicule = s.id_vehicule
+JOIN clients c   ON c.id_client = v.id_client
+WHERE b.code_borne = 'BR-NAN-01'
+ORDER BY c.nom, c.prenom, v.immatriculation;
+
+
+-- Q18 : Bornes ayant connu au moins deux incidents, avec leur nombre et la date du plus récent
+SELECT b.code_borne, st.nom_station,
+       COUNT(*)                AS nb_incidents,
+       MAX(i.date_signalement) AS dernier_incident
+FROM incidents i
+JOIN bornes b    ON b.id_borne = i.id_borne
+JOIN stations st ON st.id_station = b.id_station
+GROUP BY b.id_borne, b.code_borne, st.nom_station
+HAVING COUNT(*) >= 2
+ORDER BY nb_incidents DESC, b.code_borne;
+
+
+-- Q19 : Clients ayant au moins une session terminée dans chacune des stations du réseau (division relationnelle)
+-- Principe : le nombre de stations distinctes du client doit égaler le nombre total de stations.
+-- Résultat vide sur ce jeu de données : le maximum est de 29 stations pour un client, sur 120.
+SELECT c.id_client, c.nom, c.prenom
+FROM clients c
+JOIN vehicules v         ON v.id_client = c.id_client
+JOIN sessions_recharge s ON s.id_vehicule = v.id_vehicule
+JOIN bornes b            ON b.id_borne = s.id_borne
+WHERE s.statut = 'terminee'
+GROUP BY c.id_client, c.nom, c.prenom
+HAVING COUNT(DISTINCT b.id_station) = (SELECT COUNT(*) FROM stations)
+ORDER BY c.id_client;
+
+
+-- Q20 : Classement des clients selon l'énergie consommée : client, nombre de sessions, énergie et rang
+-- Seules les sessions terminées ou interrompues ont délivré de l'énergie (une session annulée a energie_kwh NULL).
+-- RANK() : deux clients à égalité ont le même rang.
+SELECT c.id_client, c.nom, c.prenom,
+       COUNT(*)                                 AS nb_sessions,
+       SUM(s.energie_kwh)                       AS energie_totale_kwh,
+       RANK() OVER (ORDER BY SUM(s.energie_kwh) DESC) AS rang
+FROM clients c
+JOIN vehicules v         ON v.id_client = c.id_client
+JOIN sessions_recharge s ON s.id_vehicule = v.id_vehicule
+WHERE s.statut IN ('terminee', 'interrompue')
+GROUP BY c.id_client, c.nom, c.prenom
+ORDER BY rang, c.id_client;
