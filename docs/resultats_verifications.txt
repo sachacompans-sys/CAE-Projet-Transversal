@@ -1,4 +1,4 @@
-Sortie de sql/02_verifications.sql — exécuté le  sur la base urbanwatt
+Sortie de sql/02_verifications.sql — exécuté le 2026-11-23 14:48 sur la base urbanwatt
 
     table_name     | nb_attendu | nb_reel | controle 
 -------------------+------------+---------+----------
