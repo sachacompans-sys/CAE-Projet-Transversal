@@ -1,0 +1,10 @@
+Test de persistance — 2026-11-23 15:32
+AVANT   : clients=15000 index=16 paiements=217300 role_app=1 sessions_recharge=250000
+ Container urbanwatt-db  Removed
+ Network infra_default  Removing
+ Network infra_default  Removed
+Conteneurs après down : 0 ; volume conservé : 1
+ Container urbanwatt-db  Healthy
+ Container urbanwatt-pgadmin  Starting
+ Container urbanwatt-pgadmin  Started
+APRÈS   : clients=15000 index=16 paiements=217300 role_app=1 sessions_recharge=250000

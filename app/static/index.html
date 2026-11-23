@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UrbanWatt — Réseau de recharge</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%231f4e9c'/><path d='M9 2 4 9h3l-1 5 5-7H8z' fill='white'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+  /* Deux colonnes : stations (gauche) | bornes de la station choisie (droite). Une colonne sur mobile. */
+  :root {
+    --fond: #eef1f4;  --surface: #ffffff; --encre: #16212e; --gris: #5a6876; --trait: #d5dbe2;
+    --bleu: #1f4e9c;  --bleu-pale: #e3ebf7;
+    --dispo: #1e8e5a; --maint: #b07800;   --hs: #c2362f;
+    --texte: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --chiffres: "Barlow Condensed", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fond); color: var(--encre); font: 15px/1.5 var(--texte); }
+  header { background: var(--bleu); color: #fff; padding: 14px 24px; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  header h1 { margin: 0; font: 700 1.6rem var(--chiffres); letter-spacing: .02em; }
+  header p { margin: 0; opacity: .85; }
+
+  main { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 20px; padding: 20px 24px; max-width: 1200px; margin: 0 auto; }
+  @media (max-width: 760px) { main { grid-template-columns: 1fr; padding: 16px; } }
+
+  .panneau { background: var(--surface); border: 1px solid var(--trait); border-radius: 8px; padding: 16px; min-width: 0; }
+  h2 { margin: 0 0 12px; font-size: 1.05rem; }
+  label { display: block; font-size: .85rem; color: var(--gris); margin-bottom: 4px; }
+  input { width: 100%; font: inherit; padding: 8px 10px; border: 1px solid var(--trait); border-radius: 6px; background: var(--surface); color: var(--encre); }
+  input:focus-visible, button:focus-visible { outline: 3px solid var(--bleu); outline-offset: 1px; }
+  form { display: flex; gap: 8px; align-items: end; margin-top: 12px; }
+  form div { flex: 1; }
+  button { font: 500 .95rem var(--texte); padding: 8px 14px; border: 0; border-radius: 6px; background: var(--bleu); color: #fff; cursor: pointer; }
+
+  #liste-stations { list-style: none; margin: 12px 0 0; padding: 0; max-height: 65vh; overflow-y: auto; }
+  .ville { font-size: .8rem; font-weight: 600; color: var(--gris); padding: 10px 8px 4px; }
+  .station { display: block; width: 100%; text-align: left; background: none; color: var(--encre); padding: 7px 8px; border-radius: 6px; font-weight: 400; }
+  .station:hover { background: var(--fond); }
+  .station[aria-current="true"] { background: var(--bleu-pale); color: var(--bleu); font-weight: 600; }
+  .station small { color: var(--gris); font-weight: 400; margin-left: 6px; }
+
+  .alerte { border-left: 4px solid var(--hs); background: #fbeceb; color: #7d1f1a; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 16px; }
+  .vide { color: var(--gris); }
+
+  .entete-station h2 { font-size: 1.4rem; margin-bottom: 2px; }
+  .entete-station p { margin: 0 0 4px; color: var(--gris); }
+  .resume { display: flex; gap: 16px; flex-wrap: wrap; margin: 12px 0 18px; font-size: .9rem; }
+  .resume span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; background: var(--c); }
+
+  #bornes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .borne { border: 1px solid var(--trait); border-top: 4px solid var(--c); border-radius: 6px; padding: 12px; }
+  .borne .code { font-weight: 600; }
+  .puissance { font: 700 2.2rem/1 var(--chiffres); margin: 8px 0 4px; font-variant-numeric: tabular-nums; }
+  .puissance small { font-size: 1rem; color: var(--gris); margin-left: 2px; }
+  .jauge { height: 6px; background: var(--fond); border-radius: 3px; overflow: hidden; }
+  .jauge i { display: block; height: 100%; background: var(--bleu); }
+  .details { display: flex; justify-content: space-between; margin-top: 10px; font-size: .88rem; }
+  .etat { color: var(--c); font-weight: 600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>UrbanWatt</h1>
+  <p>Réseau de recharge : stations et état des bornes</p>
+</header>
+
+<main>
+  <section class="panneau" aria-labelledby="titre-stations">
+    <h2 id="titre-stations">Stations</h2>
+    <label for="filtre">Filtrer par ville ou par nom</label>
+    <input id="filtre" type="search" placeholder="Ex. Lyon">
+    <ul id="liste-stations"><li class="vide">Chargement des stations…</li></ul>
+    <form id="form-id">
+      <div>
+        <label for="saisie-id">Ouvrir la station n°</label>
+        <input id="saisie-id" inputmode="numeric" placeholder="Ex. 3">
+      </div>
+      <button type="submit">Ouvrir</button>
+    </form>
+  </section>
+
+  <section class="panneau" aria-live="polite">
+    <div id="erreur" class="alerte" hidden></div>
+    <div id="detail"><p class="vide">Choisissez une station dans la liste pour voir ses bornes.</p></div>
+  </section>
+</main>
+
+<script>
+const ETATS = {
+  disponible:   { libelle: "Disponible",   couleur: "var(--dispo)" },
+  maintenance:  { libelle: "Maintenance",  couleur: "var(--maint)" },
+  hors_service: { libelle: "Hors service", couleur: "var(--hs)" },
+};
+let stations = [];
+
+// Appelle l'API et transforme chaque échec en message lisible
+async function appelerApi(url) {
+  let reponse;
+  try {
+    reponse = await fetch(url);
+  } catch (e) {
+    throw new Error("Le serveur ne répond pas. Vérifiez que l'API est démarrée, puis rechargez la page.");
+  }
+  const corps = await reponse.json().catch(() => ({}));
+  if (!reponse.ok) throw new Error(corps.detail || `Erreur ${reponse.status}.`);
+  return corps;
+}
+
+function afficherErreur(message) {
+  const zone = document.getElementById("erreur");
+  zone.textContent = message;
+  zone.hidden = !message;
+}
+
+function afficherStations() {
+  const filtre = document.getElementById("filtre").value.trim().toLowerCase();
+  const liste = document.getElementById("liste-stations");
+  liste.textContent = "";
+  const visibles = stations.filter((s) => (s.ville + " " + s.nom_station).toLowerCase().includes(filtre));
+  if (!visibles.length) {
+    liste.innerHTML = '<li class="vide">Aucune station ne correspond.</li>';
+    return;
+  }
+  let villeCourante = null;
+  for (const s of visibles) {
+    if (s.ville !== villeCourante) {
+      villeCourante = s.ville;
+      const titre = document.createElement("li");
+      titre.className = "ville";
+      titre.textContent = s.ville;
+      liste.append(titre);
+    }
+    const li = document.createElement("li");
+    const bouton = document.createElement("button");
+    bouton.className = "station";
+    bouton.dataset.id = s.id_station;
+    bouton.textContent = s.nom_station;
+    const code = document.createElement("small");
+    code.textContent = s.code_station;
+    bouton.append(code);
+    bouton.addEventListener("click", () => ouvrirStation(s.id_station));
+    li.append(bouton);
+    liste.append(li);
+  }
+}
+
+async function ouvrirStation(id) {
+  document.querySelectorAll(".station").forEach((b) => b.setAttribute("aria-current", String(b.dataset.id === String(id))));
+  const detail = document.getElementById("detail");
+  try {
+    const bornes = await appelerApi(`/api/stations/${encodeURIComponent(id)}/bornes`);
+    afficherErreur("");
+    afficherBornes(stations.find((s) => String(s.id_station) === String(id)), bornes);
+  } catch (e) {
+    afficherErreur(e.message);
+    detail.innerHTML = '<p class="vide">Aucune borne à afficher.</p>';
+  }
+}
+
+function afficherBornes(station, bornes) {
+  const detail = document.getElementById("detail");
+  detail.textContent = "";
+
+  const entete = document.createElement("div");
+  entete.className = "entete-station";
+  const h2 = document.createElement("h2");
+  h2.textContent = station ? station.nom_station : "Station";
+  entete.append(h2);
+  if (station) {
+    const p = document.createElement("p");
+    p.textContent = `${station.code_station} — ${station.adresse}, ${station.ville} — ouverte le ${new Date(station.date_ouverture).toLocaleDateString("fr-FR")}`;
+    entete.append(p);
+  }
+  detail.append(entete);
+
+  if (!bornes.length) {
+    detail.insertAdjacentHTML("beforeend", '<p class="vide">Cette station n\'a aucune borne.</p>');
+    return;
+  }
+
+  // Résumé : nombre de bornes par état
+  const resume = document.createElement("div");
+  resume.className = "resume";
+  for (const [etat, info] of Object.entries(ETATS)) {
+    const n = bornes.filter((b) => b.etat === etat).length;
+    const span = document.createElement("span");
+    span.style.setProperty("--c", info.couleur);
+    span.textContent = `${n} ${info.libelle.toLowerCase()}`;
+    resume.append(span);
+  }
+  detail.append(resume);
+
+  const puissanceMax = Math.max(...bornes.map((b) => Number(b.puissance_kw)));
+  const grille = document.createElement("div");
+  grille.id = "bornes";
+  for (const b of bornes) {
+    const info = ETATS[b.etat] || { libelle: b.etat, couleur: "var(--gris)" };
+    const carte = document.createElement("article");
+    carte.className = "borne";
+    carte.style.setProperty("--c", info.couleur);
+    carte.innerHTML = `
+      <div class="code"></div>
+      <div class="puissance"><span></span><small>kW</small></div>
+      <div class="jauge" aria-hidden="true"><i></i></div>
+      <div class="details"><span class="connecteur"></span><span class="etat"></span></div>`;
+    carte.querySelector(".code").textContent = b.code_borne;
+    carte.querySelector(".puissance span").textContent = Number(b.puissance_kw).toLocaleString("fr-FR");
+    carte.querySelector(".jauge i").style.width = (100 * Number(b.puissance_kw) / puissanceMax) + "%";
+    carte.querySelector(".connecteur").textContent = b.connecteur;
+    carte.querySelector(".etat").textContent = info.libelle;
+    grille.append(carte);
+  }
+  detail.append(grille);
+}
+
+document.getElementById("filtre").addEventListener("input", afficherStations);
+document.getElementById("form-id").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = document.getElementById("saisie-id").value.trim();
+  if (!id) { afficherErreur("Saisissez un numéro de station."); return; }
+  ouvrirStation(id);
+});
+
+(async () => {
+  try {
+    stations = await appelerApi("/api/stations");
+    afficherStations();
+  } catch (e) {
+    afficherErreur(e.message);
+    document.getElementById("liste-stations").innerHTML = '<li class="vide">Liste indisponible.</li>';
+  }
+})();
+</script>
+</body>
+</html>
