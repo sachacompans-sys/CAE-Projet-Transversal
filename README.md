@@ -21,7 +21,12 @@ Le prototype comprend la base (schéma, import, contrôles), 31 requêtes d'anal
 
 ## Lancement
 
-Prérequis : Docker (ici dans WSL2), Python 3.12.
+**En un double-clic (Windows)** : `lancer_urbanwatt.bat` démarre Docker, crée et remplit la base si elle est vide, lance l'API et ouvre le portail et pgAdmin dans le navigateur. Pour avoir un `UrbanWatt.exe` qui fait la même chose, compiler une fois le petit lanceur (non versionné) :
+```powershell
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /out:UrbanWatt.exe infra\lanceur\Lanceur.cs
+```
+
+Étapes détaillées, pour comprendre ou lancer à la main. Prérequis : Docker (ici dans WSL2), Python 3.12.
 
 **1. Configurer les secrets** (jamais commités) :
 ```bash
