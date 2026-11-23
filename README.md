@@ -12,7 +12,7 @@ Le prototype comprend la base (schéma, import, contrôles), 31 requêtes d'anal
 
 | Dossier | Contenu | Points d'entrée |
 |---|---|---|
-| [`docs/`](docs/) | Besoins, règles de gestion, MCD, MLD, dictionnaire, journal d'import, tests, résultats, captures | [`besoins_regles_gestion.md`](docs/besoins_regles_gestion.md), [`mcd.png`](docs/mcd.png), [`mld.png`](docs/mld.png), [`dictionnaire.md`](docs/dictionnaire.md), [`rapport_tests.md`](docs/rapport_tests.md), [`captures/`](docs/captures/) |
+| [`docs/`](docs/) | Besoins, règles de gestion, MCD, MLD, dictionnaire, journal d'import, tests, résultats, captures | [`conception.md`](docs/conception.md), [`mcd.png`](docs/mcd.png), [`mld.png`](docs/mld.png), [`import.md`](docs/import.md), [`rapport_tests.md`](docs/rapport_tests.md), [`captures/`](docs/captures/) |
 | [`sql/`](sql/) | Schéma, import, contrôles, requêtes, index, rôle applicatif | [`01_schema.sql`](sql/01_schema.sql), [`import.sql`](sql/import.sql), [`02_verifications.sql`](sql/02_verifications.sql), [`03_requetes.sql`](sql/03_requetes.sql), [`04_index.sql`](sql/04_index.sql), [`05_role_applicatif.sql`](sql/05_role_applicatif.sql) |
 | [`app/`](app/) | API FastAPI + page web, dépendances, mode d'exécution | [`app/README.md`](app/README.md), [`main.py`](app/main.py), [`static/index.html`](app/static/index.html) |
 | [`infra/`](infra/) | Docker Compose (PostgreSQL 16 + pgAdmin 4), exemple de variables d'environnement | [`docker-compose.yml`](infra/docker-compose.yml), [`.env.example`](infra/.env.example) |
@@ -66,9 +66,27 @@ bash sauvegardes/sauvegarde_restauration.sh
 - **FastAPI + psycopg 3**, requêtes paramétrées uniquement ; page en HTML + JavaScript sans framework.
 - L'API se connecte avec le rôle **`urbanwatt_app`**, en lecture seule sur `stations` et `bornes`.
 
+## Outils
+PostgreSQL 16, pgAdmin 4, Docker, draw.io, Python (FastAPI, psycopg), Git/GitHub.
+Un assistant IA a été utilisé pour la rédaction de la documentation et la vérification des requêtes ; tout le contenu a été relu, exécuté et testé par l'équipe.
+
 ## Répartition des contributions (mini gestion de projet)
 
-Méthode : une branche Git par personne (`Matys`, `Sacha`), fusion dans `main` après relecture croisée ; chaque livrable a un responsable et un relecteur, pour que chacun puisse expliquer tout le projet à l'oral. Plan détaillé et ordre de travail : [`docs/repartition_taches.md`](docs/repartition_taches.md).
+Principe : chaque livrable a un responsable et un relecteur, pour que chacun puisse expliquer tout le projet à l'oral (la mise en situation individuelle porte sur l'ensemble).
+
+**Règles de collaboration**
+- Une branche Git par personne (`Matys`, `Sacha`), fusion dans `main` après relecture croisée.
+- Toute modification SQL : rejouer la chaîne complète sur une base vide avant de pousser.
+- Jamais de `.env`, de dump ou de mot de passe commité.
+
+**Ordre de travail (dépendances)**
+1. Cadrage : besoins, règles de gestion, exploration des CSV (valeurs distinctes, NULL, doublons).
+2. Modélisation : MCD → MLD → dictionnaire.
+3. Base : Docker, puis `01_schema.sql` → import → `02_verifications.sql`.
+4. Analyse : requêtes `03_requetes.sql` (chacun sa liste), puis index.
+5. Application : API, puis page web branchée dessus.
+6. Exploitation : sauvegarde/restauration, tests.
+7. Finalisation : README, captures, soutenance.
 
 | Livrable | Responsable | Relecteur |
 |---|---|---|
