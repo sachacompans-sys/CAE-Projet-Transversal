@@ -34,7 +34,8 @@
   form div { flex: 1; }
   button { font: 500 .95rem var(--texte); padding: 8px 14px; border: 0; border-radius: 6px; background: var(--bleu); color: #fff; cursor: pointer; }
 
-  #liste-stations { list-style: none; margin: 12px 0 0; padding: 0; max-height: 65vh; overflow-y: auto; }
+  .aide { margin: 6px 0 0; font-size: .82rem; color: var(--gris); }
+  #liste-stations { list-style: none; margin: 12px 0 0; padding: 0; max-height: 52vh; overflow-y: auto; }
   .ville { font-size: .8rem; font-weight: 600; color: var(--gris); padding: 10px 8px 4px; }
   .station { display: block; width: 100%; text-align: left; background: none; color: var(--encre); padding: 7px 8px; border-radius: 6px; font-weight: 400; }
   .station:hover { background: var(--fond); }
@@ -74,11 +75,12 @@
     <ul id="liste-stations"><li class="vide">Chargement des stations…</li></ul>
     <form id="form-id">
       <div>
-        <label for="saisie-id">Ouvrir la station n°</label>
-        <input id="saisie-id" inputmode="numeric" placeholder="Ex. 3">
+        <label for="saisie-id">Accès direct par numéro de station</label>
+        <input id="saisie-id" inputmode="numeric" placeholder="Ex. 3" aria-describedby="aide-id">
       </div>
       <button type="submit">Ouvrir</button>
     </form>
+    <p id="aide-id" class="aide">Chaque station a un numéro (son identifiant). Un numéro qui n'existe pas affiche un message d'erreur.</p>
   </section>
 
   <section class="panneau" aria-live="polite">

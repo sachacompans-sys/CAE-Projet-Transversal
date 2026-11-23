@@ -57,7 +57,7 @@ git grep -F -c "<mot de passe>" $(git rev-list --all)    # pour chaque mot de pa
 | `03_requetes.sql` toujours en cours après 10 min sur une base neuve | Q26 en sous-requête corrélée : sans index, la table de 250 000 sessions était relue pour chacune des 217 300 sessions terminées | Q26 réécrite avec une CTE (maximum calculé une fois par véhicule) : 03 complet en 3 s, même résultat (18 017 lignes) |
 | Un id comme `²` aurait provoqué une erreur 500 | `str.isdigit()` accepte des chiffres Unicode que `int()` refuse | Validation `isascii() and isdigit()` → 400 |
 | Base coupée pendant une requête → erreur 500 | Seule l'ouverture de connexion était protégée | Gestionnaire global de `psycopg.OperationalError` → 503 |
-| Validation vide du champ « Ouvrir la station n° » → message anglais « Not Found » | URL `/api/stations//bornes` | Contrôle dans la page : « Saisissez un numéro de station. » |
+| Validation vide du champ « Accès direct par numéro de station » → message anglais « Not Found » | URL `/api/stations//bornes` | Contrôle dans la page : « Saisissez un numéro de station. » |
 
 ## Risques techniques et mesures de limitation
 
