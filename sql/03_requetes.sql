@@ -302,17 +302,20 @@ ORDER BY b.code_borne;
 
 
 -- Q26 : Pour chaque véhicule, la ou les sessions terminées dont l'énergie délivrée est la plus élevée
--- (sous-requête corrélée : le MAX est recalculé pour le véhicule de chaque ligne ; les ex æquo restent)
+-- Étape 1 (CTE) : le maximum de chaque véhicule, calculé une seule fois. Étape 2 : on garde les sessions égales
+-- à ce maximum (les ex æquo restent). Une sous-requête corrélée relirait la table pour chacune des 217 300 sessions.
+WITH max_vehicule AS (
+    SELECT id_vehicule, MAX(energie_kwh) AS energie_max
+    FROM sessions_recharge
+    WHERE statut = 'terminee'
+    GROUP BY id_vehicule
+)
 SELECT v.immatriculation, s.id_session, s.debut_session, s.energie_kwh
 FROM sessions_recharge s
-JOIN vehicules v ON v.id_vehicule = s.id_vehicule
+JOIN max_vehicule m ON m.id_vehicule = s.id_vehicule
+JOIN vehicules v    ON v.id_vehicule = s.id_vehicule
 WHERE s.statut = 'terminee'
-  AND s.energie_kwh = (
-      SELECT MAX(s2.energie_kwh)
-      FROM sessions_recharge s2
-      WHERE s2.id_vehicule = s.id_vehicule
-        AND s2.statut = 'terminee'
-  )
+  AND s.energie_kwh = m.energie_max
 ORDER BY v.immatriculation, s.debut_session;
 
 
