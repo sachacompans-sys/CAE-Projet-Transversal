@@ -4,3 +4,6 @@
 *.backup
 __pycache__/
 .venv/
+.playwright-mcp/
+*.exe
+docs/script_demo.md

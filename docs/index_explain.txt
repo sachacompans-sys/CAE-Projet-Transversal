@@ -1,0 +1,100 @@
+﻿DROP INDEX
+DROP INDEX
+ANALYZE
+===== Q3 AVANT index (attendu : Seq Scan on sessions_recharge) =====
+                                                                               QUERY PLAN                                                                               
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Gather Merge  (cost=5448.29..5450.94 rows=23 width=90) (actual time=14.964..17.433 rows=29 loops=1)
+   Workers Planned: 1
+   Workers Launched: 1
+   ->  Sort  (cost=4448.28..4448.34 rows=23 width=90) (actual time=12.799..12.801 rows=14 loops=2)
+         Sort Key: s.debut_session DESC
+         Sort Method: quicksort  Memory: 26kB
+         Worker 0:  Sort Method: quicksort  Memory: 25kB
+         ->  Nested Loop  (cost=8.59..4447.76 rows=23 width=90) (actual time=0.893..12.780 rows=14 loops=2)
+               ->  Hash Join  (cost=8.31..4441.03 rows=23 width=36) (actual time=0.873..12.731 rows=14 loops=2)
+                     Hash Cond: (s.id_vehicule = v.id_vehicule)
+                     ->  Parallel Seq Scan on sessions_recharge s  (cost=0.00..4046.59 rows=147059 width=40) (actual time=0.007..6.802 rows=125000 loops=2)
+                     ->  Hash  (cost=8.30..8.30 rows=1 width=4) (actual time=0.038..0.039 rows=1 loops=2)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           ->  Index Scan using uq_vehicules_immatriculation on vehicules v  (cost=0.28..8.30 rows=1 width=4) (actual time=0.030..0.030 rows=1 loops=2)
+                                 Index Cond: ((immatriculation)::text = 'ESSAI-0001'::text)
+               ->  Index Scan using pk_bornes on bornes b  (cost=0.28..0.29 rows=1 width=62) (actual time=0.003..0.003 rows=1 loops=29)
+                     Index Cond: (id_borne = s.id_borne)
+ Planning Time: 0.492 ms
+ Execution Time: 17.470 ms
+(19 rows)
+
+CREATE INDEX
+===== Q3 APRÈS index (attendu : Index Scan / Bitmap Index Scan using idx_sessions_recharge_id_vehicule) =====
+                                                                          QUERY PLAN                                                                          
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=82.06..82.16 rows=39 width=90) (actual time=0.126..0.127 rows=29 loops=1)
+   Sort Key: s.debut_session DESC
+   Sort Method: quicksort  Memory: 26kB
+   ->  Nested Loop  (cost=4.97..81.03 rows=39 width=90) (actual time=0.058..0.117 rows=29 loops=1)
+         ->  Nested Loop  (cost=4.69..69.61 rows=39 width=36) (actual time=0.052..0.082 rows=29 loops=1)
+               ->  Index Scan using uq_vehicules_immatriculation on vehicules v  (cost=0.28..8.30 rows=1 width=4) (actual time=0.012..0.012 rows=1 loops=1)
+                     Index Cond: ((immatriculation)::text = 'ESSAI-0001'::text)
+               ->  Bitmap Heap Scan on sessions_recharge s  (cost=4.41..61.16 rows=15 width=40) (actual time=0.037..0.064 rows=29 loops=1)
+                     Recheck Cond: (id_vehicule = v.id_vehicule)
+                     Heap Blocks: exact=22
+                     ->  Bitmap Index Scan on idx_sessions_recharge_id_vehicule  (cost=0.00..4.41 rows=15 width=0) (actual time=0.028..0.028 rows=29 loops=1)
+                           Index Cond: (id_vehicule = v.id_vehicule)
+         ->  Index Scan using pk_bornes on bornes b  (cost=0.28..0.29 rows=1 width=62) (actual time=0.001..0.001 rows=1 loops=29)
+               Index Cond: (id_borne = s.id_borne)
+ Planning Time: 0.339 ms
+ Execution Time: 0.202 ms
+(16 rows)
+
+===== Q5 AVANT index (attendu : Seq Scan on sessions_recharge) =====
+                                                                                QUERY PLAN                                                                                
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Gather Merge  (cost=5971.15..6069.13 rows=852 width=18) (actual time=16.627..18.970 rows=2064 loops=1)
+   Workers Planned: 1
+   Workers Launched: 1
+   ->  Sort  (cost=4971.14..4973.27 rows=852 width=18) (actual time=14.619..14.660 rows=1032 loops=2)
+         Sort Key: s.energie_kwh DESC
+         Sort Method: quicksort  Memory: 135kB
+         Worker 0:  Sort Method: quicksort  Memory: 34kB
+         ->  Hash Join  (cost=27.12..4929.67 rows=852 width=18) (actual time=5.132..14.358 rows=1032 loops=2)
+               Hash Cond: (s.id_borne = b.id_borne)
+               ->  Parallel Seq Scan on sessions_recharge s  (cost=0.00..4414.24 rows=127784 width=22) (actual time=0.008..9.833 rows=108650 loops=2)
+                     Filter: (statut = 'terminee'::statut_session)
+                     Rows Removed by Filter: 16350
+               ->  Hash  (cost=27.06..27.06 rows=5 width=4) (actual time=0.109..0.112 rows=5 loops=2)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Hash Join  (cost=8.17..27.06 rows=5 width=4) (actual time=0.052..0.108 rows=5 loops=2)
+                           Hash Cond: (b.id_station = st.id_station)
+                           ->  Seq Scan on bornes b  (cost=0.00..17.00 rows=700 width=8) (actual time=0.009..0.037 rows=600 loops=2)
+                           ->  Hash  (cost=8.16..8.16 rows=1 width=4) (actual time=0.030..0.031 rows=1 loops=2)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                 ->  Index Scan using uq_stations_code_station on stations st  (cost=0.14..8.16 rows=1 width=4) (actual time=0.026..0.026 rows=1 loops=2)
+                                       Index Cond: ((code_station)::text = 'ST-LYO'::text)
+ Planning Time: 0.248 ms
+ Execution Time: 19.043 ms
+(23 rows)
+
+CREATE INDEX
+===== Q5 APRÈS index (attendu : Bitmap Index Scan using idx_sessions_recharge_id_borne) =====
+                                                                              QUERY PLAN                                                                              
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=230.24..233.86 rows=1448 width=18) (actual time=1.275..1.374 rows=2064 loops=1)
+   Sort Key: s.energie_kwh DESC
+   Sort Method: quicksort  Memory: 193kB
+   ->  Nested Loop  (cost=8.47..154.22 rows=1448 width=18) (actual time=0.070..0.779 rows=2064 loops=1)
+         ->  Hash Join  (cost=8.17..27.06 rows=5 width=4) (actual time=0.027..0.107 rows=5 loops=1)
+               Hash Cond: (b.id_station = st.id_station)
+               ->  Seq Scan on bornes b  (cost=0.00..17.00 rows=700 width=8) (actual time=0.006..0.043 rows=600 loops=1)
+               ->  Hash  (cost=8.16..8.16 rows=1 width=4) (actual time=0.013..0.014 rows=1 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Index Scan using uq_stations_code_station on stations st  (cost=0.14..8.16 rows=1 width=4) (actual time=0.011..0.011 rows=1 loops=1)
+                           Index Cond: ((code_station)::text = 'ST-LYO'::text)
+         ->  Index Scan using idx_sessions_recharge_id_borne on sessions_recharge s  (cost=0.29..21.81 rows=362 width=22) (actual time=0.013..0.091 rows=413 loops=5)
+               Index Cond: (id_borne = b.id_borne)
+               Filter: (statut = 'terminee'::statut_session)
+               Rows Removed by Filter: 56
+ Planning Time: 0.322 ms
+ Execution Time: 1.479 ms
+(17 rows)
+
